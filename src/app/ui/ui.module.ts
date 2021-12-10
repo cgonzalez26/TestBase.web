@@ -1,0 +1,37 @@
+import { NgModule } from "@angular/core";
+import { LoginModule } from "./authentication/login/login.module";
+import { Error400Module } from "./errors/400/error-400.module";
+import { Error401Module } from "./errors/401/error-401.module";
+import { Error403Module } from "./errors/403/error-403.module";
+import { Error404Module } from "./errors/404/error-404.module";
+import { Error500Module } from "./errors/500/error-500.module";
+import { HomeModule } from "./home/home.module";
+import { UsuariosModule } from "./usuarios/usuarios.module";
+import { EstablecimientosModule } from "./establecimientos/establecimientos.module";
+//import { UsuariosComponent } from './usuarios/usuarios.component';
+//import { UsuariosTableComponent } from './usuarios/usuarios-table/usuarios-table.component';
+//import { UsuariosDialogComponent } from './usuarios/usuarios-dialog/usuarios-dialog.component';
+//import { BaseModule } from "../base/base.module";
+import { BlockUIModule } from "ng-block-ui";
+
+@NgModule({
+    imports: [
+        // Authentication
+        LoginModule,
+
+        // Errors
+        Error400Module,
+        Error401Module,
+        Error403Module,
+        Error404Module,
+        Error500Module,
+
+        HomeModule,
+        UsuariosModule,
+        EstablecimientosModule,
+        BlockUIModule,
+        //BaseModule,
+    ],
+    //declarations: [UsuariosComponent, UsuariosTableComponent, UsuariosDialogComponent],
+})
+export class UiModule {}

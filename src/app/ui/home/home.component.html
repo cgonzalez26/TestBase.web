@@ -1,0 +1,46 @@
+<div class="page-layout blank p-24" fusePerfectScrollbar>
+
+     <!-- HEADER -->
+     <div class="header" fxLayout="row" fxLayoutAlign="start start">
+        <div class="title-and-description" fxLayout="column" fxLayoutAlign="center center" fxFlex>
+            <div class="h1">{{'PAGES.HOME.TITLE' | translate}}</div>
+            <div class="h3">
+                {{'PAGES.HOME.DESCRIPTION' | translate}}
+            </div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content" fxLayout="column">
+        <div class="price-tables" fxLayout="row wrap" fxLayoutAlign="center center">
+           
+
+            <!--<div class="price-table style-2 mat-elevation-z12" fxLayout="column" *blockUI="'bw-blockui-incidents'">
+
+                <div class="package-type mat-accent-fg">{{'PAGES.HOME.INCIDENTS' | translate}}</div>
+
+                <div class="price" fxLayout="row" fxLayoutAlign="center start">
+                    <div class="value">{{incidentsBasicSummary.Quantity}}</div>
+                </div>
+
+
+                    <div class="term" *ngFor="let componentType of componentsBasicSummary.ComponentTypes">
+                        <ng-container *ngIf="componentType.ComponentsQuantity > 0">
+                            <span class="text-bold">{{componentType.ComponentsQuantity}}</span>
+                            {{'PAGES.HOME.COMPONENTS.' + componentType.Id + (componentType.ComponentsQuantity > 1 ? 'S' : '') | translate}}
+                        </ng-container>
+                    </div>
+                </div>
+
+                <button mat-raised-button class="cta-button" color="accent" (click)="goToIncidents()">{{'COMMON.ACTIONS.MANAGE' | translate}}</button>
+            </div>-->
+
+            
+
+        <!-- <span *ngFor="let computer of _computerService.entitiesObservable | async">
+            {{computer.Name}}
+        </span> -->
+    </div>
+
+</div>
