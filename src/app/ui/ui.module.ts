@@ -8,6 +8,7 @@ import { Error500Module } from "./errors/500/error-500.module";
 import { HomeModule } from "./home/home.module";
 import { UsuariosModule } from "./usuarios/usuarios.module";
 import { EstablecimientosModule } from "./establecimientos/establecimientos.module";
+import { ImpuestosAutModule } from "./impuestos_aut/impuestos_aut.module";
 //import { UsuariosComponent } from './usuarios/usuarios.component';
 //import { UsuariosTableComponent } from './usuarios/usuarios-table/usuarios-table.component';
 //import { UsuariosDialogComponent } from './usuarios/usuarios-dialog/usuarios-dialog.component';
@@ -29,6 +30,7 @@ import { BlockUIModule } from "ng-block-ui";
         HomeModule,
         UsuariosModule,
         EstablecimientosModule,
+        ImpuestosAutModule,
         BlockUIModule,
         //BaseModule,
     ],
