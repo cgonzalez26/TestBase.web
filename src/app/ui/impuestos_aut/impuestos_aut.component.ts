@@ -14,11 +14,12 @@ import { Router } from '@angular/router';
 //import { EstablecimientosDialogComponent } from './establecimientos-dialog/establecimientos-dialog.component';
 import { BaseTableOptions } from 'app/base/base-table/base-table-options';
 import { ImpuestosAut } from 'app/models/impuestos_aut/impuestos_aut';
+import { Console } from 'console';
 
 @Component({
-  selector: 'app-impuestos-aut',
-  templateUrl: './impuestos-aut.component.html',
-  styleUrls: ['./impuestos-aut.component.scss']
+  selector: 'impuestos_aut',
+  templateUrl: './impuestos_aut.component.html',
+  styleUrls: ['./impuestos_aut.component.scss']
 })
 export class ImpuestosAutComponent implements OnInit {
   @BlockUI('forms-block') dialogBlockUI: NgBlockUI;
@@ -69,6 +70,7 @@ export class ImpuestosAutComponent implements OnInit {
         ).subscribe(
             ([_forms]) => {
                 this.forms$ = this._impuestos_autService.getEntities();
+                //console.log('datos imp aut',this.forms$); SI lo tiene                
                 this.dialogBlockUI.stop();
             }, error => {
                 this._sweetAlert2Helper.error('Error', 'Ocurrió un error recuperando los Impuestos. Detalle: ' + error.Message, null, false);
@@ -78,5 +80,12 @@ export class ImpuestosAutComponent implements OnInit {
         this.dialogBlockUI.stop();
     }
   }
+
+  onActivate(row: ImpuestosAut) {
+    this._impuestos_autService.setForm(row);
+    /* document.getElementById('tFormSelected').innerHTML = row.Formulario;
+    this.router.navigate(['pages', 'form-configuration', row.CodFormulario, row.CodVersion]);
+    localStorage.setItem(environment.localStorageEditItem, JSON.stringify(row)); */
+}
 
 }

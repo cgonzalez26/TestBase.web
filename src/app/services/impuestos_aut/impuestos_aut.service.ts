@@ -10,7 +10,7 @@ import {environment} from 'environments/environment';
 @Injectable()
 export class ImpuestosAutService extends BaseService<ImpuestosAut> {
     TAG = "ImpuestosAutService";
-    private readonly controller = "Impuestos_Aut";
+    private readonly controller = "ImpuestosAut";
     private formBehaviorSubject: BehaviorSubject<ImpuestosAut>;
     public formObservable: Observable<ImpuestosAut>;
 

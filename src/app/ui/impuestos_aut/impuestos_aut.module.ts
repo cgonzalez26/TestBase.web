@@ -39,7 +39,7 @@ const routes = [
       //canActivate: [NgxPermissionsGuard],
       data: {
           permissions: {
-              only: 'PAGES_MANAGEMENT_ESTABLECIMIENTOS',
+              only: 'PAGES_MANAGEMENT_IMPUESTOS_AUT',
               redirectTo: '/pages/errors/error-403'
           }
       }

@@ -9,8 +9,8 @@ export const environment = {
     localStorageEditItem: 'ATIBaseWebLSLocal',
     api: {
         //auth: "https://apiatiidentity-staging.azurewebsites.net/",
-        auth: "https://localhost:5005/",//"http://localhost:58425/",
-        base: "https://localhost:5005/api/", // ACCIÓN REQUERIDA: CONFIGURAR LA URL DE LA API LOCAL
+        auth: "https://localhost:44301/",//"http://localhost:58425/",
+        base: "https://localhost:44301/api/", // ACCIÓN REQUERIDA: CONFIGURAR LA URL DE LA API LOCAL
     },
     google: {
         maps: {

@@ -8,9 +8,9 @@ import { TranslationService } from '../../../services/translation/translation.se
 import { takeUntil, debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-impuestos-aut-table',
-  templateUrl: './impuestos-aut-table.component.html',
-  styleUrls: ['./impuestos-aut-table.component.scss']
+  selector: 'impuestos_aut-table',
+  templateUrl: './impuestos_aut-table.component.html',
+  styleUrls: ['./impuestos_aut-table.component.scss']
 })
 export class ImpuestosAutTableComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild(DatatableComponent, {static: false}) table: DatatableComponent;
@@ -28,8 +28,26 @@ export class ImpuestosAutTableComponent implements OnInit, OnChanges, OnDestroy 
 
   filteredRows: Observable<ImpuestosAut[]>;
 
-  constructor(private _translationService: TranslationService,
-    private _impuestosautService: ImpuestosAutService,) { }
+  constructor(
+      private _translationService: TranslationService,
+      private _impuestosautService: ImpuestosAutService,) { 
+        this._unsubscribeAll = new Subject();
+        this.onAdd = new EventEmitter<void>();
+        this.onEdit = new EventEmitter<any>();
+        this.onActivate = new EventEmitter<any>();
+        this.messages.emptyMessage = this._translationService.noDataAvailable;
+        this.searchInput = new FormControl('');
+        this.searchInput.valueChanges
+                .pipe(
+                    takeUntil(this._unsubscribeAll),
+                    debounceTime(500),
+                    distinctUntilChanged()
+                )
+                .subscribe(value => {
+                    this.search(value);
+                });
+
+  }
 
   ngOnInit(): void {
     this.filteredRows = this.forms$;
@@ -56,4 +74,17 @@ export class ImpuestosAutTableComponent implements OnInit, OnChanges, OnDestroy 
     }
   }
 
+  add() {
+    this.onAdd.emit();
+  }
+
+  edit(row) {
+      this.onEdit.emit(row);
+  }
+
+  activate(row) {
+      if (event.type == 'dblclick') {
+          this.onActivate.emit(row.row);
+      }        
+  }
 }

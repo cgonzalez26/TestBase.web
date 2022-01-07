@@ -22,9 +22,9 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-impuestos-aut-dialog',
-  templateUrl: './impuestos-aut-dialog.component.html',
-  styleUrls: ['./impuestos-aut-dialog.component.scss']
+  selector: 'impuestos_aut-dialog',
+  templateUrl: './impuestos_aut-dialog.component.html',
+  styleUrls: ['./impuestos_aut-dialog.component.scss']
 })
 export class ImpuestosAutDialogComponent implements OnInit {
   @BlockUI('form-dialog-establecimiento') dialogBlockUI: NgBlockUI;
