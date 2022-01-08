@@ -10,6 +10,7 @@ import { UsuariosModule } from "./usuarios/usuarios.module";
 import { EstablecimientosModule } from "./establecimientos/establecimientos.module";
 import { ImpuestosAutModule } from "./impuestos_aut/impuestos_aut.module";
 import { ImpuestosInmModule } from "./impuestos_inm/impuestos_inm.module";
+import { ImpuestosTsgModule } from "./impuestos_tsg/impuestos_tsg.module";
 //import { UsuariosComponent } from './usuarios/usuarios.component';
 //import { UsuariosTableComponent } from './usuarios/usuarios-table/usuarios-table.component';
 //import { UsuariosDialogComponent } from './usuarios/usuarios-dialog/usuarios-dialog.component';
@@ -33,6 +34,7 @@ import { BlockUIModule } from "ng-block-ui";
         EstablecimientosModule,
         ImpuestosAutModule,
         ImpuestosInmModule,
+        ImpuestosTsgModule,
         BlockUIModule,
         //BaseModule,
     ],
