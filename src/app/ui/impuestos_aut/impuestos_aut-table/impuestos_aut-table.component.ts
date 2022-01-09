@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { ElementRef } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Subject, Observable } from 'rxjs';
 import { ImpuestosAut } from '../../../models/impuestos_aut/impuestos_aut';
@@ -6,6 +7,8 @@ import { FormControl } from '@angular/forms';
 import { ImpuestosAutService } from '../../../services/impuestos_aut/impuestos_aut.service';
 import { TranslationService } from '../../../services/translation/translation.service';
 import { takeUntil, debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'impuestos_aut-table',
@@ -87,4 +90,62 @@ export class ImpuestosAutTableComponent implements OnInit, OnChanges, OnDestroy 
           this.onActivate.emit(row.row);
       }        
   }
+
+  /*public openPDF():void {
+    let DATA = document.getElementById('tableForm');
+      
+    html2canvas(DATA).then(canvas => {
+        
+        let fileWidth = 208;
+        let fileHeight = canvas.height * fileWidth / canvas.width;
+        
+        const FILEURI = canvas.toDataURL('image/png')
+        let PDF = new jsPDF('p', 'mm', 'a4');
+        let position = 0;
+        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
+        
+        PDF.save('impuestos_aut.pdf');
+    });     
+  }*/
+
+  generarPDF(){
+    html2canvas(document.getElementById('tableForm'), {
+       // Opciones
+       allowTaint: true,
+       useCORS: false,
+       // Calidad del PDF
+       scale: 1
+    }).then(function(canvas) {
+    var img = canvas.toDataURL("image/png");
+    var doc = new jsPDF();
+    doc.addImage(img,'PNG',7, 20, 195, 105);
+    doc.save('impuestos_aut2.pdf');
+   });
+  }
+
+  downloadPDF() {
+    // Extraemos el
+    const DATA = document.getElementById('tableForm');
+    const doc = new jsPDF('p', 'pt', 'a4');
+    const options = {
+      background: 'white',
+      scale: 3
+    };
+    html2canvas(DATA, options).then((canvas) => {
+
+      const img = canvas.toDataURL('image/PNG');
+
+      // Add image Canvas to PDF
+      const bufferX = 15;
+      const bufferY = 15;
+      const imgProps = (doc as any).getImageProperties(img);
+      const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
+      return doc;
+    }).then((docResult) => {
+      docResult.save(`${new Date().toISOString()}_impuestos_aut.pdf`);
+    });
+  }
+
 }
