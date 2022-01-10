@@ -9,6 +9,8 @@ import { TranslationService } from '../../../services/translation/translation.se
 import { takeUntil, debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { ExcelService } from '../../../services/excel/excel.service';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'impuestos_aut-table',
@@ -33,7 +35,8 @@ export class ImpuestosAutTableComponent implements OnInit, OnChanges, OnDestroy 
 
   constructor(
       private _translationService: TranslationService,
-      private _impuestosautService: ImpuestosAutService,) { 
+      private _impuestosautService: ImpuestosAutService,
+      private _excelService: ExcelService) { 
         this._unsubscribeAll = new Subject();
         this.onAdd = new EventEmitter<void>();
         this.onEdit = new EventEmitter<any>();
@@ -148,4 +151,39 @@ export class ImpuestosAutTableComponent implements OnInit, OnChanges, OnDestroy 
     });
   }
 
+  data: any = [{
+    eid: 'e101',
+    ename: 'ravi',
+    esal: 1000
+    },{
+    eid: 'e102',
+    ename: 'ram',
+    esal: 2000
+    },{
+    eid: 'e103',
+    ename: 'rajesh',
+    esal: 3000
+    }];
+
+  downloadExcel2(){
+    let excelTable: Array<any> = [];
+     
+    this._excelService.exportAsExcelFile(this.data, `impuestos_aut`);
+  }
+
+  fileName= 'ExcelSheet.xlsx';
+  downloadExcel(): void
+  {
+    /* pass here the table id */
+    let element = document.getElementById('tableForm');
+    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+ 
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+ 
+    /* save to file */  
+    XLSX.writeFile(wb, this.fileName);
+ 
+  }
 }
