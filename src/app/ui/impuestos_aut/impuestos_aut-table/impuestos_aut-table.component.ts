@@ -33,6 +33,8 @@ export class ImpuestosAutTableComponent implements OnInit, OnChanges, OnDestroy 
 
   filteredRows: Observable<ImpuestosAut[]>;
 
+  impuestos_aut:ImpuestosAut[] = [];
+
   constructor(
       private _translationService: TranslationService,
       private _impuestosautService: ImpuestosAutService,
@@ -94,40 +96,22 @@ export class ImpuestosAutTableComponent implements OnInit, OnChanges, OnDestroy 
       }        
   }
 
-  /*public openPDF():void {
-    let DATA = document.getElementById('tableForm');
-      
-    html2canvas(DATA).then(canvas => {
-        
-        let fileWidth = 208;
-        let fileHeight = canvas.height * fileWidth / canvas.width;
-        
-        const FILEURI = canvas.toDataURL('image/png')
-        let PDF = new jsPDF('p', 'mm', 'a4');
-        let position = 0;
-        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
-        
-        PDF.save('impuestos_aut.pdf');
-    });     
-  }*/
-
   generarPDF(){
     html2canvas(document.getElementById('tableForm'), {
-       // Opciones
-       allowTaint: true,
-       useCORS: false,
-       // Calidad del PDF
-       scale: 1
-    }).then(function(canvas) {
-    var img = canvas.toDataURL("image/png");
-    var doc = new jsPDF();
-    doc.addImage(img,'PNG',7, 20, 195, 105);
-    doc.save('impuestos_aut2.pdf');
-   });
+        // Opciones
+        allowTaint: true,
+        useCORS: false,
+        // Calidad del PDF
+        scale: 1
+      }).then(function(canvas) {
+      var img = canvas.toDataURL("image/png");
+      var doc = new jsPDF();
+      doc.addImage(img,'PNG',7, 20, 195, 105);
+      doc.save('impuestos_aut2.pdf');
+    });
   }
 
   downloadPDF() {
-    // Extraemos el
     const DATA = document.getElementById('tableForm');
     const doc = new jsPDF('p', 'pt', 'a4');
     const options = {
@@ -151,39 +135,25 @@ export class ImpuestosAutTableComponent implements OnInit, OnChanges, OnDestroy 
     });
   }
 
-  data: any = [{
-    eid: 'e101',
-    ename: 'ravi',
-    esal: 1000
-    },{
-    eid: 'e102',
-    ename: 'ram',
-    esal: 2000
-    },{
-    eid: 'e103',
-    ename: 'rajesh',
-    esal: 3000
-    }];
-
-  downloadExcel2(){
-    let excelTable: Array<any> = [];
-     
+  data: any = [];
+  downloadExcel(){
+    this.forms$.subscribe(
+      imp => {
+        this.impuestos_aut = imp;
+        this.impuestos_aut.forEach( impuesto => {          
+             this.data.push({
+                Dominio: impuesto.sDominio,
+                Año: impuesto.iAnio,
+                Periodo: impuesto.iPeriodo,
+                Monto_Pagar: impuesto.nMonto_Pagar, 
+                Pago: impuesto.nPago,
+                Saldo: impuesto.nSaldo
+             })
+          })
+      }
+    );      
+    //console.log(`array impuestos `,this.impuestos_aut);
     this._excelService.exportAsExcelFile(this.data, `impuestos_aut`);
   }
 
-  fileName= 'ExcelSheet.xlsx';
-  downloadExcel(): void
-  {
-    /* pass here the table id */
-    let element = document.getElementById('tableForm');
-    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
- 
-    /* generate workbook and add the worksheet */
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
- 
-    /* save to file */  
-    XLSX.writeFile(wb, this.fileName);
- 
-  }
 }
