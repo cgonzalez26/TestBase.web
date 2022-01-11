@@ -8,7 +8,15 @@ export const locale = {
             },
             IMPUESTOS_AUT: {
                 TITLE: "Impuestos Automotor",
-                DESCRIPTION: "Inicio del Sistema",
+                DESCRIPTION: "Impuestos Automotor",
+            },
+            IMPUESTOS_INM: {
+                TITLE: "Impuestos Inmobiliarios",
+                DESCRIPTION: "Impuestos Inmobiliarios",
+            },
+            IMPUESTOS_TSG: {
+                TITLE: "Impuestos TSG",
+                DESCRIPTION: "Impuestos TSG",
             }
         },
     },

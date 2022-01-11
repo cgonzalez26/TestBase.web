@@ -31,6 +31,7 @@ export const locale = {
                 CLOSE: "Cerrar",
                 OK: "Aceptar",
                 ACCEPT: "Aceptar",
+                VIEW: "Ver",
                 VIEW_DETAIL: "Ver detalle",
             },
             DEFAULT_COLUMNS: {
