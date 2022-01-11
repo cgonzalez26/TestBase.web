@@ -5,6 +5,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { FuseSharedModule } from "@fuse/shared.module";
 
 import { HomeComponent } from "./home.component";
+import { BlockUIModule } from "ng-block-ui";
 
 const routes = [
     {
@@ -15,7 +16,8 @@ const routes = [
 
 @NgModule({
     declarations: [HomeComponent],
-    imports: [RouterModule.forChild(routes), TranslateModule, FuseSharedModule],
+    imports: [RouterModule.forChild(routes), TranslateModule, FuseSharedModule,
+        BlockUIModule.forRoot(),],
     exports: [HomeComponent],
 })
 export class HomeModule {}

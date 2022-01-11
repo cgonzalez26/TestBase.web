@@ -1,4 +1,5 @@
-<div class="page-layout blank p-24" fusePerfectScrollbar>
+<!--<div class="page-layout blank p-24" fusePerfectScrollbar>-->
+<div id="home-container" class="page-layout simple fullwidth">
 
      <!-- HEADER -->
      <div class="header" fxLayout="row" fxLayoutAlign="start start">
@@ -16,26 +17,16 @@
         <div class="price-tables" fxLayout="row wrap" fxLayoutAlign="center center">
            
 
-            <!--<div class="price-table style-2 mat-elevation-z12" fxLayout="column" *blockUI="'bw-blockui-incidents'">
+            <div class="price-table style-2 mat-elevation-z12" fxLayout="column" *blockUI="'bw-blockui-impuestos-aut'">
 
-                <div class="package-type mat-accent-fg">{{'PAGES.HOME.INCIDENTS' | translate}}</div>
+                <div class="package-type mat-accent-fg">{{'PAGES.IMPUESTOS_AUT.TITLE' | translate}}</div>
 
                 <div class="price" fxLayout="row" fxLayoutAlign="center start">
-                    <div class="value">{{incidentsBasicSummary.Quantity}}</div>
-                </div>
+                    <div class="value">5</div>
+                </div>                 
 
-
-                    <div class="term" *ngFor="let componentType of componentsBasicSummary.ComponentTypes">
-                        <ng-container *ngIf="componentType.ComponentsQuantity > 0">
-                            <span class="text-bold">{{componentType.ComponentsQuantity}}</span>
-                            {{'PAGES.HOME.COMPONENTS.' + componentType.Id + (componentType.ComponentsQuantity > 1 ? 'S' : '') | translate}}
-                        </ng-container>
-                    </div>
-                </div>
-
-                <button mat-raised-button class="cta-button" color="accent" (click)="goToIncidents()">{{'COMMON.ACTIONS.MANAGE' | translate}}</button>
-            </div>-->
-
+                <button mat-raised-button color="accent" (click)="goToImpuestosAut()">{{'COMMON.ACTIONS.MANAGE' | translate}}</button>              
+            </div>
             
 
         <!-- <span *ngFor="let computer of _computerService.entitiesObservable | async">
