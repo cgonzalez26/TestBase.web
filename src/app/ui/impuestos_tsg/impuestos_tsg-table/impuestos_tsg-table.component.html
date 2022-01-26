@@ -22,27 +22,32 @@
         <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
             <span>{{row.iPeriodo ? row.iPeriodo : 'No disponible'}}</span>
         </ng-template>
-    </ngx-datatable-column>
+    </ngx-datatable-column>    
     <ngx-datatable-column prop="Monto a Pagar" name="Monto a Pagar" [width]="15">
         <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
             <span>{{row.nMonto_Pagar ? row.nMonto_Pagar : 'No disponible'}}</span>
         </ng-template>
     </ngx-datatable-column>
+    <ngx-datatable-column prop="Fecha de Pago" name="Fecha de Pago" [width]="15">
+        <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+            <span>{{row.dFecha_Pago ? (row.dFecha_Pago | date:'dd/MM/yyyy' ) : 'No disponible'}}</span>
+        </ng-template>
+    </ngx-datatable-column>
     <ngx-datatable-column prop="Pago" name="Pago" [width]="15">
         <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
-            <span>{{row.nPago ? row.nPago : 'No disponible'}}</span>
+            <span>{{row.nPago ? row.nPago : '-'}}</span>
         </ng-template>
     </ngx-datatable-column>
     <ngx-datatable-column prop="Saldo" name="Saldo" [width]="15">
         <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
-            <span>{{row.nSaldo ? row.nSaldo : 'No disponible'}}</span>
+            <span>{{row.nSaldo ? row.nSaldo : '-'}}</span>
         </ng-template>
     </ngx-datatable-column>   
     <!-- <ngx-datatable-column prop="Institucion" name="Institucion" [width]="25">
         <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
             <span>{{row.Institucion ? row.Institucion : 'No disponible'}}</span>
         </ng-template>
-    </ngx-datatable-column> 
+    </ngx-datatable-column> -->
     <ngx-datatable-column [sortable]="true" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
         <ng-template ngx-datatable-cell-template let-row="row">
             <button mat-button [matMenuTriggerFor]="actionsMenu" class="user-button">
@@ -53,13 +58,13 @@
             <mat-menu #actionsMenu="matMenu">
                 <div>
                     <button mat-menu-item (click)="edit(row)">
-                        <mat-icon>edit</mat-icon>
-                        <span>Editar</span>
+                        <mat-icon>picture_as_pdf</mat-icon>
+                        <span>Imprimir Boleta</span>
                     </button>
                 </div>
             </mat-menu>
         </ng-template>
-    </ngx-datatable-column>-->
+    </ngx-datatable-column>
 </ngx-datatable>
 <div>&nbsp;</div>
 <div class="col-md-4 text-right">
