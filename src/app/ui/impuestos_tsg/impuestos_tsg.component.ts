@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { BaseTableOptions } from 'app/base/base-table/base-table-options';
 import { ImpuestosTsg } from 'app/models/impuestos_tsg/impuestos_tsg';
 import { Console } from 'console';
+import { AuthenticationService } from "../../services/authentication/authentication.service";
 
 @Component({
   selector: 'impuestos_tsg',
@@ -28,14 +29,16 @@ export class ImpuestosTsgComponent implements OnInit {
   userCode: string;
   dialogRef: any;
   baseTableOptions: BaseTableOptions;
-
+  sNroDocumento: string = "";
+  
   constructor(
     private _impuestos_tsgService: ImpuestosTsgService,
     private _sweetAlert2Helper: SweetAlert2Helper,
     private _matDialog: MatDialog,
     private _fuseConfigService: FuseConfigService,
     private _fuseTranslationLoaderService: FuseTranslationLoaderService,
-    private router: Router
+    private router: Router,
+    private _authenticationService: AuthenticationService
   ) { 
     this._fuseConfigService.config = {
       layout: {
@@ -64,9 +67,12 @@ export class ImpuestosTsgComponent implements OnInit {
 
   ngOnInit(): void {
     this.dialogBlockUI.start('Cargando...');
+    const currentUser = this._authenticationService.usuario;
+    this.sNroDocumento = (currentUser.Rol.Id == 'COD_CONTRIBUYENTE')? currentUser.sNroDocumento: 'admin';
+
     if (!this.forms || this.forms.length == 0) {
         combineLatest(
-            this._impuestos_tsgService.getAll()
+            this._impuestos_tsgService.getByNroDocumento(this.sNroDocumento)
         ).subscribe(
             ([_forms]) => {
                 this.forms$ = this._impuestos_tsgService.getEntities();

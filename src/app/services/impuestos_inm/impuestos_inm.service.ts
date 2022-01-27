@@ -153,6 +153,15 @@ export class ImpuestosInmService extends BaseService<ImpuestosInm> {
         );
     }  
 
+    public getByNroDocumento(NroDocumento: string): Observable<ImpuestosInm[]> {
+        const url:string = `${this.controller}/getByNroDocumento/${NroDocumento}`;
+        return this.HttpClient.get<ImpuestosInm[]>(url).pipe(
+            map((response) => {
+                this.setEntities(response);
+                return response;
+            })
+        );
+    }    
     /*public countWhere(filter: Filter): Observable<number> {
         const url: string = `${this.controller}/count-where`;
         return this.HttpClient.post<number>(url, filter).pipe(

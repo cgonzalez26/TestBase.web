@@ -99,6 +99,7 @@ export class AuthenticationService {
                     user.Foto = response["Foto"];                    
                     user.Rol = rol;
                     user.Telefono = response["Telefono"];
+                    user.sNroDocumento = response["sNroDocumento"];
 
                     user.Rol.Id = rol.Id;
                     user.Rol.Nombre = rol.Nombre;

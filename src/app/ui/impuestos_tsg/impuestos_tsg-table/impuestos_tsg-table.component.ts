@@ -9,6 +9,7 @@ import { takeUntil, debounceTime, distinctUntilChanged, map } from 'rxjs/operato
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { ExcelService } from '../../../services/excel/excel.service';
+import { AuthenticationService } from "../../../services/authentication/authentication.service";
 
 @Component({
   selector: 'impuestos_tsg-table',
@@ -31,11 +32,13 @@ export class ImpuestosTsgTableComponent implements OnInit, OnChanges, OnDestroy 
 
   filteredRows: Observable<ImpuestosTsg[]>;
   impuestos_tsg:ImpuestosTsg[] = [];
+  isContribuyente: boolean;
 
   constructor(
       private _translationService: TranslationService,
       private _ImpuestosTsgService: ImpuestosTsgService,
-      private _excelService: ExcelService) { 
+      private _excelService: ExcelService,
+      private _authenticationService: AuthenticationService,) { 
         this._unsubscribeAll = new Subject();
         this.onAdd = new EventEmitter<void>();
         this.onEdit = new EventEmitter<any>();
@@ -56,6 +59,8 @@ export class ImpuestosTsgTableComponent implements OnInit, OnChanges, OnDestroy 
 
   ngOnInit(): void {
     this.filteredRows = this.forms$;
+    const currentUser = this._authenticationService.usuario;    
+    this.isContribuyente = (currentUser.Rol.Id == 'COD_CONTRIBUYENTE')? true: false;
   }
 
   ngOnChanges() {

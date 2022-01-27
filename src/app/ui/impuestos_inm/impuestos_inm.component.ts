@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { BaseTableOptions } from 'app/base/base-table/base-table-options';
 import { ImpuestosInm } from 'app/models/impuestos_inm/impuestos_inm';
 import { Console } from 'console';
+import { AuthenticationService } from "../../services/authentication/authentication.service";
 
 @Component({
   selector: 'impuestos_inm',
@@ -28,6 +29,7 @@ export class ImpuestosInmComponent implements OnInit {
   userCode: string;
   dialogRef: any;
   baseTableOptions: BaseTableOptions;
+  sNroDocumento: string = "";
 
   constructor(
     private _impuestos_inmService: ImpuestosInmService,
@@ -35,7 +37,8 @@ export class ImpuestosInmComponent implements OnInit {
     private _matDialog: MatDialog,
     private _fuseConfigService: FuseConfigService,
     private _fuseTranslationLoaderService: FuseTranslationLoaderService,
-    private router: Router
+    private router: Router,
+    private _authenticationService: AuthenticationService
   ) { 
     this._fuseConfigService.config = {
       layout: {
@@ -64,9 +67,12 @@ export class ImpuestosInmComponent implements OnInit {
 
   ngOnInit(): void {
     this.dialogBlockUI.start('Cargando...');
+    const currentUser = this._authenticationService.usuario;
+    this.sNroDocumento = (currentUser.Rol.Id == 'COD_CONTRIBUYENTE')? currentUser.sNroDocumento: 'admin';
+
     if (!this.forms || this.forms.length == 0) {
         combineLatest(
-            this._impuestos_inmService.getAll()
+            this._impuestos_inmService.getByNroDocumento(this.sNroDocumento)
         ).subscribe(
             ([_forms]) => {
                 this.forms$ = this._impuestos_inmService.getEntities();

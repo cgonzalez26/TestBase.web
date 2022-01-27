@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 //import { EstablecimientosDialogComponent } from './establecimientos-dialog/establecimientos-dialog.component';
 import { BaseTableOptions } from 'app/base/base-table/base-table-options';
 import { ImpuestosAut } from 'app/models/impuestos_aut/impuestos_aut';
+import { AuthenticationService } from "../../services/authentication/authentication.service";
 import { Console } from 'console';
 
 @Component({
@@ -28,7 +29,7 @@ export class ImpuestosAutComponent implements OnInit {
   userCode: string;
   dialogRef: any;
   baseTableOptions: BaseTableOptions;
-  sNroDocumento: string;
+  sNroDocumento: string = "";
 
   constructor(
     private _impuestos_autService: ImpuestosAutService,
@@ -36,7 +37,8 @@ export class ImpuestosAutComponent implements OnInit {
     private _matDialog: MatDialog,
     private _fuseConfigService: FuseConfigService,
     private _fuseTranslationLoaderService: FuseTranslationLoaderService,
-    private router: Router
+    private router: Router,
+    private _authenticationService: AuthenticationService
   ) { 
     this._fuseConfigService.config = {
       layout: {
@@ -65,7 +67,9 @@ export class ImpuestosAutComponent implements OnInit {
 
   ngOnInit(): void {
     this.dialogBlockUI.start('Cargando...');
-    this.sNroDocumento = JSON.parse(localStorage.getItem(environment.localStorageAuthDataItem)).sNroDocumento;
+    const currentUser = this._authenticationService.usuario;
+    this.sNroDocumento = (currentUser.Rol.Id == 'COD_CONTRIBUYENTE')? currentUser.sNroDocumento: 'admin';
+
     if (!this.forms || this.forms.length == 0) {
         combineLatest(
             this._impuestos_autService.getByNroDocumento(this.sNroDocumento),

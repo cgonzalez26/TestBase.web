@@ -48,7 +48,7 @@
             <span>{{row.Institucion ? row.Institucion : 'No disponible'}}</span>
         </ng-template>
     </ngx-datatable-column> -->
-    <ngx-datatable-column [sortable]="true" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+    <ngx-datatable-column [sortable]="true" [canAutoResize]="false" [draggable]="false" [resizeable]="false" *ngIf="isContribuyente">
         <ng-template ngx-datatable-cell-template let-row="row">
             <button mat-button [matMenuTriggerFor]="actionsMenu" class="user-button">
                 <div fxLayout="row" fxLayoutAlign="center center">

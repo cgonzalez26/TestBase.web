@@ -10,6 +10,7 @@ export class Usuario extends BaseModel{
     Rol: Rol;
     CodigoPostal: string;
     Telefono: string;
+    sNroDocumento: string;
     Token: string;
 
     constructor() {
@@ -22,6 +23,7 @@ export class Usuario extends BaseModel{
         this.Rol = null;
         this.CodigoPostal = "";
         this.Telefono = "";
+        this.sNroDocumento = "";
         this.Token = "";
     }
 }
