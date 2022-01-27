@@ -28,6 +28,7 @@ export class ImpuestosAutComponent implements OnInit {
   userCode: string;
   dialogRef: any;
   baseTableOptions: BaseTableOptions;
+  sNroDocumento: string;
 
   constructor(
     private _impuestos_autService: ImpuestosAutService,
@@ -64,9 +65,10 @@ export class ImpuestosAutComponent implements OnInit {
 
   ngOnInit(): void {
     this.dialogBlockUI.start('Cargando...');
+    this.sNroDocumento = JSON.parse(localStorage.getItem(environment.localStorageAuthDataItem)).sNroDocumento;
     if (!this.forms || this.forms.length == 0) {
         combineLatest(
-            this._impuestos_autService.getAll(),
+            this._impuestos_autService.getByNroDocumento(this.sNroDocumento),
             //this._impuestos_autService.getByTitular(sNroDocumento);
         ).subscribe(
             ([_forms]) => {

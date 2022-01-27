@@ -74,7 +74,7 @@ export class ImpuestosAutService extends BaseService<ImpuestosAut> {
         return super.getById(id, (response) => {
             this.setEntity(response);
         });
-    }
+    }    
 
     /**
      * Overridden base method
@@ -152,6 +152,16 @@ export class ImpuestosAutService extends BaseService<ImpuestosAut> {
             })
         );
     }  
+
+    public getByNroDocumento(NroDocumento: string): Observable<ImpuestosAut[]> {
+        const url:string = `${this.controller}/getByNroDocumento/${NroDocumento}`;
+        return this.HttpClient.get<ImpuestosAut[]>(url).pipe(
+            map((response) => {
+                this.setEntities(response);
+                return response;
+            })
+        );
+    }    
 
     /*public countWhere(filter: Filter): Observable<number> {
         const url: string = `${this.controller}/count-where`;
