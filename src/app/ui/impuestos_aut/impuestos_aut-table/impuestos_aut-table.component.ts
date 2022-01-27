@@ -11,6 +11,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { ExcelService } from '../../../services/excel/excel.service';
 import * as XLSX from 'xlsx';
+import { AuthenticationService } from "../../../services/authentication/authentication.service";
 
 @Component({
   selector: 'impuestos_aut-table',
@@ -35,12 +36,13 @@ export class ImpuestosAutTableComponent implements OnInit, OnChanges, OnDestroy 
 
   impuestos_aut:ImpuestosAut[] = [];
   
-  isContribuyente: false;
+  isContribuyente: boolean;
 
   constructor(
       private _translationService: TranslationService,
       private _impuestosautService: ImpuestosAutService,
-      private _excelService: ExcelService) { 
+      private _excelService: ExcelService,
+      private _authenticationService: AuthenticationService,) { 
         this._unsubscribeAll = new Subject();
         this.onAdd = new EventEmitter<void>();
         this.onEdit = new EventEmitter<any>();
@@ -61,6 +63,9 @@ export class ImpuestosAutTableComponent implements OnInit, OnChanges, OnDestroy 
 
   ngOnInit(): void {
     this.filteredRows = this.forms$;
+    const currentUser = this._authenticationService.usuario;
+    console.log(currentUser.Rol.Id);
+    this.isContribuyente = (currentUser.Rol.Id == 'COD_CONTRIBUYENTE')? true: false;
   }
 
   ngOnChanges() {

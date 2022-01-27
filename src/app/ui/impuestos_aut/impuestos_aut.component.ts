@@ -66,7 +66,8 @@ export class ImpuestosAutComponent implements OnInit {
     this.dialogBlockUI.start('Cargando...');
     if (!this.forms || this.forms.length == 0) {
         combineLatest(
-            this._impuestos_autService.getAll()
+            this._impuestos_autService.getAll(),
+            //this._impuestos_autService.getByTitular(sNroDocumento);
         ).subscribe(
             ([_forms]) => {
                 this.forms$ = this._impuestos_autService.getEntities();

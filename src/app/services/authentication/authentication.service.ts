@@ -87,10 +87,10 @@ export class AuthenticationService {
                     if (!role2) {
                         return false;
                     }
-                    */
+                    */                    
                     const rol = new Rol();
-                    rol.Id = 'COD_ADMIN';
-                    rol.Nombre = 'Super Admin';
+                    rol.Id = response["RolId"];
+                    rol.Nombre = (response["RolId"] == 'COD_ADMIN')?'Super Admin':'Contribuyente';
 
                     const user = new Usuario();
                     user.Nombres = response["Nombres"];
