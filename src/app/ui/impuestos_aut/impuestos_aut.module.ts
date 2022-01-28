@@ -32,6 +32,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { BlockUIModule } from 'ng-block-ui';
+import { ImpuestosAutBoletaComponent } from './impuestos_aut-table/impuestos-aut-boleta/impuestos-aut-boleta.component';
 const routes = [
   {
       path: 'management/impuestos_aut',
@@ -78,7 +79,8 @@ const routes = [
   declarations: [
       ImpuestosAutComponent, 
       ImpuestosAutDialogComponent, 
-      ImpuestosAutTableComponent
+      ImpuestosAutTableComponent, 
+      ImpuestosAutBoletaComponent
   ],
   exports: [
       ImpuestosAutComponent,        

@@ -12,6 +12,7 @@ import html2canvas from 'html2canvas';
 import { ExcelService } from '../../../services/excel/excel.service';
 import * as XLSX from 'xlsx';
 import { AuthenticationService } from "../../../services/authentication/authentication.service";
+import { ImpuestosAutBoletaComponent } from './impuestos-aut-boleta/impuestos-aut-boleta.component';
 
 @Component({
   selector: 'impuestos_aut-table',
@@ -20,6 +21,9 @@ import { AuthenticationService } from "../../../services/authentication/authenti
 })
 export class ImpuestosAutTableComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild(DatatableComponent, {static: false}) table: DatatableComponent;
+  //Vamos a usar el Component para imprimr Boleta
+  @ViewChild(ImpuestosAutBoletaComponent) ImpuestosAutBoleta : ImpuestosAutBoletaComponent;
+
   @Input() forms$: Observable<ImpuestosAut[]>;
   @Output() onAdd: EventEmitter<void>;
   @Output() onEdit: EventEmitter<any>;
@@ -37,6 +41,8 @@ export class ImpuestosAutTableComponent implements OnInit, OnChanges, OnDestroy 
   impuestos_aut:ImpuestosAut[] = [];
   
   isContribuyente: boolean;
+
+  datosBoleta: ImpuestosAut;
 
   constructor(
       private _translationService: TranslationService,
@@ -163,12 +169,8 @@ export class ImpuestosAutTableComponent implements OnInit, OnChanges, OnDestroy 
     this._excelService.exportAsExcelFile(this.data, `impuestos_aut`);
   }
 
-  printBoleta(row){
-    
-    const DATA2 = document.createElement("div");
-    const p = document.createElement("p");
-    p.textContent = "<div>Boleta de Impuesto</div><div>&nbsp;</div><div>Dominio</div>";
-    DATA2?.appendChild(p);
+  printBoleta(row){        
+    const DATA2 = document.getElementById('printBoleta');
     const doc = new jsPDF('p', 'pt', 'a4');
     const options = {
       background: 'white',
