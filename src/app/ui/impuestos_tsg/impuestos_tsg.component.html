@@ -4,7 +4,7 @@
             <h2>{{'PAGES.FORMS.TITLE' | translate}}</h2>
         </div>
         <div fxFlex fusePerfectScrollbar>
-            <impuestos_tsg-table [forms$]="forms$" (onActivate)="onActivate($event)"></impuestos_tsg-table>
+            <impuestos_tsg-table [forms$]="forms$" (onEdit)="edit($event)" (onActivate)="onActivate($event)"></impuestos_tsg-table>
         </div>
     </div>
   </div>

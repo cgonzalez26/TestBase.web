@@ -3,8 +3,8 @@ export const locale = {
     data: {
         PAGES: {
             FORMS: {
-                TITLE: 'Impuestos de Inmuebles',
-                DESCRIPTION: 'ABM de Impuestos de Inmuebles.',
+                TITLE: 'Impuestos de Inmuebles - Estado de Deuda',
+                DESCRIPTION: 'Impuestos de Inmuebles - Estado de Deuda',
             }
         }
     }

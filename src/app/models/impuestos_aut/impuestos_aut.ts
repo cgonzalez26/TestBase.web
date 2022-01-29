@@ -11,6 +11,7 @@ export class ImpuestosAut extends BaseModel{
     nSaldo: number;
     dFecha_Pago: Date;
     tObservaciones: string;
+    VehiculoId: string;
 
     constructor() {
         super();
@@ -23,5 +24,6 @@ export class ImpuestosAut extends BaseModel{
         this.nSaldo = null;
         this.dFecha_Pago = null;
         this.tObservaciones = null;
+        this.VehiculoId = null;
     }
 }

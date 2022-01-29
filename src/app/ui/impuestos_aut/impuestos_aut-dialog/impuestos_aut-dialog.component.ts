@@ -14,6 +14,8 @@ import { NgBlockUI, BlockUI } from 'ng-block-ui';
 import { Observable, combineLatest } from 'rxjs';
 import * as moment from 'moment';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 export interface DialogData {
   titleTranslationCode: string;
@@ -27,14 +29,14 @@ export interface DialogData {
   styleUrls: ['./impuestos_aut-dialog.component.scss']
 })
 export class ImpuestosAutDialogComponent implements OnInit {
-  @BlockUI('form-dialog-establecimiento') dialogBlockUI: NgBlockUI;
+  @BlockUI('form-dialog-imp-aut') dialogBlockUI: NgBlockUI;
   dialogForm: FormGroup;
   title: string;
   action: string;
   form: ImpuestosAut; 
   rowCopy: ImpuestosAut = new ImpuestosAut();
-  saveCallback: (any) => void;
-  tipoestablecimientos : any[];
+  saveCallback: (any) => void;  
+  diaVencimiento: string="15";
 
   constructor(
     public _matDialogRef: MatDialogRef<ImpuestosAutDialogComponent>,
@@ -55,7 +57,7 @@ export class ImpuestosAutDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.dialogBlockUI.start('Cargando...');
-    combineLatest(
+    /*combineLatest(
         //this._establecimientosService.getTipoEstablecimientos(),
     ).subscribe(      
       ([]) => {
@@ -65,7 +67,8 @@ export class ImpuestosAutDialogComponent implements OnInit {
         }, error => {
             this._sweetAlert2Helper.error('Error', 'Ocurrió un error recuperando los formularios. Detalle: ' + error.Message, null, false);
             this.dialogBlockUI.stop();
-      });  
+      }); */ 
+      this.dialogBlockUI.stop();
   }
 
   createDialogForm(): FormGroup {
@@ -78,5 +81,43 @@ export class ImpuestosAutDialogComponent implements OnInit {
     return formGroup;
   }
 
+  setRawValues(): any {
+    const rawValue = this.dialogForm.getRawValue();
+    this.form.sDominio = rawValue.sDominio;
+    this.form.nMonto_Pagar = rawValue.nMonto_Pagar;
+    this.form.iAnio = rawValue.iAnio;
+    this.form.iPeriodo = rawValue.iPeriodo;
+  }
+
+  cancel() {
+    this._matDialogRef.close();      
+  }
+
+  printBoleta(row){     
+    
+    const DATA2 = document.getElementById('divPrintBoleta');
+    const doc = new jsPDF('p', 'pt', 'a4');
+    const options = {
+      background: 'white',
+      scale: 3
+    };
+
+    //console.log('print boleta ->',row,'html  ',DATA2);
+    html2canvas(DATA2, options).then((canvas) => {
+
+      const img = canvas.toDataURL('image/PNG');
+
+      // Add image Canvas to PDF
+      const bufferX = 15;
+      const bufferY = 15;
+      const imgProps = (doc as any).getImageProperties(img);
+      const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
+      return doc;
+    }).then((docResult) => {
+      docResult.save(`${new Date().toISOString()}_boleta_imp_aut.pdf`);
+    });
+  }
 
 }

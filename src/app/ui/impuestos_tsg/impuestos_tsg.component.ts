@@ -11,7 +11,7 @@ import { locale as english } from './i18n/en';
 import { locale as spanish } from './i18n/es';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { Router } from '@angular/router';
-//import { EstablecimientosDialogComponent } from './establecimientos-dialog/establecimientos-dialog.component';
+import { ImpuestosTsgDialogComponent } from './impuestos_tsg-dialog/impuestos_tsg-dialog.component';
 import { BaseTableOptions } from 'app/base/base-table/base-table-options';
 import { ImpuestosTsg } from 'app/models/impuestos_tsg/impuestos_tsg';
 import { Console } from 'console';
@@ -92,6 +92,22 @@ export class ImpuestosTsgComponent implements OnInit {
     /* document.getElementById('tFormSelected').innerHTML = row.Formulario;
     this.router.navigate(['pages', 'form-configuration', row.CodFormulario, row.CodVersion]);
     localStorage.setItem(environment.localStorageEditItem, JSON.stringify(row)); */
-}
+  }
 
+  edit(row: ImpuestosTsg): void {
+    this._impuestos_tsgService.getById(row.Id).subscribe((impForm: ImpuestosTsg) =>{
+      row = impForm;  
+      this.dialogRef = this._matDialog.open(ImpuestosTsgDialogComponent, {
+          panelClass: 'form-dialog',
+          width: '50%',
+          height: '80%',
+          disableClose: true,
+          data: {
+              titleTranslationCode: 'Impresión Boleta de Impuesto TSG',
+              action: 'edit',
+              form: row
+          }
+      });
+    })
+  }
 }

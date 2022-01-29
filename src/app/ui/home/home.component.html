@@ -17,7 +17,9 @@
 
             <div class="price-table style-2 mat-elevation-z12" fxLayout="column" *blockUI="'bw-blockui-impuestos-aut'">
 
-                <div class="package-type mat-accent-fg">{{'PAGES.IMPUESTOS_AUT.TITLE' | translate}}</div>
+                <div class="package-type mat-accent-fg">{{'PAGES.IMPUESTOS_AUT.TITLE' | translate}}
+                    <p *ngIf="isContribuyente">(con Deuda)</p>
+                </div>
 
                 <div class="price" fxLayout="row" fxLayoutAlign="center start">
                     <div class="value">{{impuestos_aut_count}}</div>
@@ -28,7 +30,9 @@
 
             <div class="price-table style-2 mat-elevation-z12" fxLayout="column" *blockUI="'bw-blockui-impuestos-inm'">
 
-                <div class="package-type mat-accent-fg">{{'PAGES.IMPUESTOS_INM.TITLE' | translate}}</div>
+                <div class="package-type mat-accent-fg">{{'PAGES.IMPUESTOS_INM.TITLE' | translate}}
+                    <p *ngIf="isContribuyente">(con Deuda)</p>
+                </div>
 
                 <div class="price" fxLayout="row" fxLayoutAlign="center start">
                     <div class="value">{{impuestos_inm_count}}</div>
@@ -39,7 +43,9 @@
 
             <div class="price-table style-2 mat-elevation-z12" fxLayout="column" *blockUI="'bw-blockui-impuestos-tsg'">
 
-                <div class="package-type mat-accent-fg">{{'PAGES.IMPUESTOS_TSG.TITLE' | translate}}</div>
+                <div class="package-type mat-accent-fg">{{'PAGES.IMPUESTOS_TSG.TITLE' | translate}}
+                    <p *ngIf="isContribuyente">(con Deuda)</p>
+                </div>
 
                 <div class="price" fxLayout="row" fxLayoutAlign="center start">
                     <div class="value">{{impuestos_tsg_count}}</div>

@@ -3,8 +3,8 @@ export const locale = {
     data: {
         PAGES: {
             FORMS: {
-                TITLE: 'Impuestos de TSG',
-                DESCRIPTION: 'ABM de Impuestos de TSG.',
+                TITLE: 'Impuestos de TSG - Estado de Deuda',
+                DESCRIPTION: 'Impuestos de TSG - Estado de Deuda',
             }
         }
     }

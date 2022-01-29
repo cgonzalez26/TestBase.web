@@ -10,6 +10,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ImpuestosAutService } from 'app/services/impuestos_aut/impuestos_aut.service';
 import { ImpuestosInmService } from 'app/services/impuestos_inm/impuestos_inm.service';
 import { ImpuestosTsgService } from 'app/services/impuestos_tsg/impuestos_tsg.service';
+import { AuthenticationService } from "../../services/authentication/authentication.service";
 
 @Component({
     selector: "home",
@@ -29,7 +30,8 @@ export class HomeComponent implements OnInit{
     impuestos_aut_count: number;
     impuestos_inm_count: number;
     impuestos_tsg_count: number;
-
+    sNroDocumento: string;
+    isContribuyente: boolean;
     constructor(
         private _fuseConfigService: FuseConfigService,
         private _fuseTranslationLoaderService: FuseTranslationLoaderService,
@@ -37,6 +39,7 @@ export class HomeComponent implements OnInit{
         private _impuestos_autService: ImpuestosAutService,
         private _impuestos_inmService: ImpuestosInmService,
         private _impuestos_tsgService: ImpuestosTsgService,
+        private _authenticationService: AuthenticationService,
     ) {
         this._fuseConfigService.config = {
             layout: {
@@ -63,9 +66,12 @@ export class HomeComponent implements OnInit{
         setTimeout(() => {
             this.impuestosAutBlockUI.stop(); // Stop blocking
           }, 1000);*/
-
+        const currentUser = this._authenticationService.usuario;        
+        this.isContribuyente = (currentUser.Rol.Id == 'COD_CONTRIBUYENTE')? true: false;
+        this.sNroDocumento = (currentUser.Rol.Id == 'COD_CONTRIBUYENTE')? currentUser.sNroDocumento: 'admin';
+      
         this.impuestosAutBlockUI.start();
-        this._impuestos_autService.count().subscribe(response => {
+        this._impuestos_autService.getCountDeudaByNroDocumento(this.sNroDocumento).subscribe(response => {
             this.impuestos_aut_count = response;
             this.impuestosAutBlockUI.stop();
         }, error => {
@@ -73,7 +79,7 @@ export class HomeComponent implements OnInit{
         });
 
         this.impuestosInmBlockUI.start();
-        this._impuestos_inmService.count().subscribe(response => {
+        this._impuestos_inmService.getCountDeudaByNroDocumento(this.sNroDocumento).subscribe(response => {
             this.impuestos_inm_count = response;
             this.impuestosInmBlockUI.stop();
         }, error => {
@@ -81,7 +87,7 @@ export class HomeComponent implements OnInit{
         });
 
         this.impuestosTsgBlockUI.start();
-        this._impuestos_tsgService.count().subscribe(response => {
+        this._impuestos_tsgService.getCountDeudaByNroDocumento(this.sNroDocumento).subscribe(response => {
             this.impuestos_tsg_count = response;
             this.impuestosTsgBlockUI.stop();
         }, error => {

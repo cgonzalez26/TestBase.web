@@ -14,6 +14,8 @@ import { NgBlockUI, BlockUI } from 'ng-block-ui';
 import { Observable, combineLatest } from 'rxjs';
 import * as moment from 'moment';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 export interface DialogData {
   titleTranslationCode: string;
@@ -27,7 +29,7 @@ export interface DialogData {
   styleUrls: ['./impuestos_inm-dialog.component.scss']
 })
 export class ImpuestosInmDialogComponent implements OnInit {
-  @BlockUI('form-dialog-establecimiento') dialogBlockUI: NgBlockUI;
+  @BlockUI('form-dialog-imp-inm') dialogBlockUI: NgBlockUI;
   dialogForm: FormGroup;
   title: string;
   action: string;
@@ -35,6 +37,7 @@ export class ImpuestosInmDialogComponent implements OnInit {
   rowCopy: ImpuestosInm = new ImpuestosInm();
   saveCallback: (any) => void;
   tipoestablecimientos : any[];
+  diaVencimiento: string="15";
 
   constructor(
     public _matDialogRef: MatDialogRef<ImpuestosInmDialogComponent>,
@@ -78,5 +81,35 @@ export class ImpuestosInmDialogComponent implements OnInit {
     return formGroup;
   }
 
+  cancel() {
+    this._matDialogRef.close();      
+  }
+  
+  printBoleta(row){     
+    
+    const DATA2 = document.getElementById('divPrintBoleta');
+    const doc = new jsPDF('p', 'pt', 'a4');
+    const options = {
+      background: 'white',
+      scale: 3
+    };
+
+    //console.log('print boleta ->',row,'html  ',DATA2);
+    html2canvas(DATA2, options).then((canvas) => {
+
+      const img = canvas.toDataURL('image/PNG');
+
+      // Add image Canvas to PDF
+      const bufferX = 15;
+      const bufferY = 15;
+      const imgProps = (doc as any).getImageProperties(img);
+      const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
+      return doc;
+    }).then((docResult) => {
+      docResult.save(`${new Date().toISOString()}_boleta_imp_inm.pdf`);
+    });
+  }
 
 }

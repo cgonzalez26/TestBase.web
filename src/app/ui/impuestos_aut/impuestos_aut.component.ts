@@ -11,7 +11,7 @@ import { locale as english } from './i18n/en';
 import { locale as spanish } from './i18n/es';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { Router } from '@angular/router';
-//import { EstablecimientosDialogComponent } from './establecimientos-dialog/establecimientos-dialog.component';
+import { ImpuestosAutDialogComponent } from './impuestos_aut-dialog/impuestos_aut-dialog.component';
 import { BaseTableOptions } from 'app/base/base-table/base-table-options';
 import { ImpuestosAut } from 'app/models/impuestos_aut/impuestos_aut';
 import { AuthenticationService } from "../../services/authentication/authentication.service";
@@ -38,7 +38,7 @@ export class ImpuestosAutComponent implements OnInit {
     private _fuseConfigService: FuseConfigService,
     private _fuseTranslationLoaderService: FuseTranslationLoaderService,
     private router: Router,
-    private _authenticationService: AuthenticationService
+    private _authenticationService: AuthenticationService,    
   ) { 
     this._fuseConfigService.config = {
       layout: {
@@ -93,6 +93,22 @@ export class ImpuestosAutComponent implements OnInit {
     /* document.getElementById('tFormSelected').innerHTML = row.Formulario;
     this.router.navigate(['pages', 'form-configuration', row.CodFormulario, row.CodVersion]);
     localStorage.setItem(environment.localStorageEditItem, JSON.stringify(row)); */
-}
+  }
 
+  edit(row: ImpuestosAut): void {
+    this._impuestos_autService.getById(row.Id).subscribe((impForm: ImpuestosAut) =>{
+      row = impForm;  
+      this.dialogRef = this._matDialog.open(ImpuestosAutDialogComponent, {
+          panelClass: 'form-dialog',
+          width: '50%',
+          height: '80%',
+          disableClose: true,          
+          data: {
+              titleTranslationCode: 'Impresión Boleta de Impuesto Automotor',
+              action: 'edit',
+              form: row
+          }
+      });
+    })
+  }
 }

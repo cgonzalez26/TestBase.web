@@ -163,6 +163,15 @@ export class ImpuestosTsgService extends BaseService<ImpuestosTsg> {
         );
     } 
 
+    public getCountDeudaByNroDocumento(NroDocumento: string): Observable<number> {
+        const url:string = `${this.controller}/getCountDeudaByNroDocumento/${NroDocumento}`;
+        return this.HttpClient.get<number>(url).pipe(
+            map((response) => {                
+                return response;
+            })
+        );
+    } 
+    
     /*public countWhere(filter: Filter): Observable<number> {
         const url: string = `${this.controller}/count-where`;
         return this.HttpClient.post<number>(url, filter).pipe(

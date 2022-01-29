@@ -11,7 +11,7 @@ import { locale as english } from './i18n/en';
 import { locale as spanish } from './i18n/es';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { Router } from '@angular/router';
-//import { EstablecimientosDialogComponent } from './establecimientos-dialog/establecimientos-dialog.component';
+import { ImpuestosInmDialogComponent } from './impuestos_inm-dialog/impuestos_inm-dialog.component';
 import { BaseTableOptions } from 'app/base/base-table/base-table-options';
 import { ImpuestosInm } from 'app/models/impuestos_inm/impuestos_inm';
 import { Console } from 'console';
@@ -92,6 +92,22 @@ export class ImpuestosInmComponent implements OnInit {
     /* document.getElementById('tFormSelected').innerHTML = row.Formulario;
     this.router.navigate(['pages', 'form-configuration', row.CodFormulario, row.CodVersion]);
     localStorage.setItem(environment.localStorageEditItem, JSON.stringify(row)); */
-}
+  }
 
+  edit(row: ImpuestosInm): void {
+    this._impuestos_inmService.getById(row.Id).subscribe((impForm: ImpuestosInm) =>{
+      row = impForm;  
+      this.dialogRef = this._matDialog.open(ImpuestosInmDialogComponent, {
+          panelClass: 'form-dialog',
+          width: '50%',
+          height: '80%',
+          disableClose: true,
+          data: {
+              titleTranslationCode: 'Impresión Boleta de Impuesto Inmobiliario',
+              action: 'edit',
+              form: row
+          }
+      });
+    })
+  }
 }

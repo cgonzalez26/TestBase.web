@@ -7,7 +7,7 @@
 (activate)="activate($event)"-->
 
 <ngx-datatable #table id="tableForm" class="material h600" [rows]="filteredRows | async" [columnMode]="'force'"
-    [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="6" [messages]="messages" >
+    [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [messages]="messages" >
     <ngx-datatable-column prop="Catastro" name="Catastro" [width]="25">
         <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
             <span>{{row.sCatastro ? row.sCatastro : 'No disponible'}}</span>
@@ -25,12 +25,12 @@
     </ngx-datatable-column>    
     <ngx-datatable-column prop="Monto a Pagar" name="Monto a Pagar" [width]="15">
         <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
-            <span>{{row.nMonto_Pagar ? row.nMonto_Pagar : 'No disponible'}}</span>
+            <span>{{row.nMonto_Pagar ? row.nMonto_Pagar : '-'}}</span>
         </ng-template>
     </ngx-datatable-column>
     <ngx-datatable-column prop="Fecha de Pago" name="Fecha de Pago" [width]="15">
         <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
-            <span>{{row.dFecha_Pago ? (row.dFecha_Pago | date:'dd/MM/yyyy' ) : 'No disponible'}}</span>
+            <span>{{row.dFecha_Pago ? (row.dFecha_Pago | date:'dd/MM/yyyy' ) : '-'}}</span>
         </ng-template>
     </ngx-datatable-column>
     <ngx-datatable-column prop="Pago" name="Pago" [width]="15">

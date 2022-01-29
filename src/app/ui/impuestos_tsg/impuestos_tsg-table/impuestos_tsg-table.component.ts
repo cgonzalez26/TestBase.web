@@ -133,6 +133,7 @@ export class ImpuestosTsgTableComponent implements OnInit, OnChanges, OnDestroy 
                 Año: impuesto.iAnio,
                 Periodo: impuesto.iPeriodo,
                 Monto_Pagar: impuesto.nMonto_Pagar, 
+                dFecha_Pago: impuesto.dFecha_Pago,
                 Pago: impuesto.nPago,
                 Saldo: impuesto.nSaldo
              })

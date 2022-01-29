@@ -42,7 +42,7 @@ export class ImpuestosAutTableComponent implements OnInit, OnChanges, OnDestroy 
   
   isContribuyente: boolean;
 
-  datosBoleta: ImpuestosAut;
+  impuesto_aut_padre: ImpuestosAut;
 
   constructor(
       private _translationService: TranslationService,
@@ -124,17 +124,20 @@ export class ImpuestosAutTableComponent implements OnInit, OnChanges, OnDestroy 
     });
   }
 
+  
+
   downloadPDF() {
-    const DATA = document.getElementById('tableForm');
+    const DATA = document.getElementById('tableForm');    
     const doc = new jsPDF('p', 'pt', 'a4');
+    doc.setFontSize(10);
+    doc.text("Impuestos del Automotor - Estado de Deuda",100,10);
     const options = {
       background: 'white',
-      scale: 3
+      scale: 3,    
     };
     html2canvas(DATA, options).then((canvas) => {
 
       const img = canvas.toDataURL('image/PNG');
-
       // Add image Canvas to PDF
       const bufferX = 15;
       const bufferY = 15;
@@ -159,6 +162,7 @@ export class ImpuestosAutTableComponent implements OnInit, OnChanges, OnDestroy 
                 Año: impuesto.iAnio,
                 Periodo: impuesto.iPeriodo,
                 Monto_Pagar: impuesto.nMonto_Pagar, 
+                dFecha_Pago: impuesto.dFecha_Pago,
                 Pago: impuesto.nPago,
                 Saldo: impuesto.nSaldo
              })
@@ -169,15 +173,17 @@ export class ImpuestosAutTableComponent implements OnInit, OnChanges, OnDestroy 
     this._excelService.exportAsExcelFile(this.data, `impuestos_aut`);
   }
 
-  printBoleta(row){        
-    const DATA2 = document.getElementById('printBoleta');
+  
+  printBoleta(row){     
+    this.ImpuestosAutBoleta.impuesto_aut = row;         
+    /*const DATA2 = document.getElementById('printBoleta');
     const doc = new jsPDF('p', 'pt', 'a4');
     const options = {
       background: 'white',
       scale: 3
     };
 
-    console.log('print boleta ->',row,'html  ',DATA2);
+    //console.log('print boleta ->',row,'html  ',DATA2);
     html2canvas(DATA2, options).then((canvas) => {
 
       const img = canvas.toDataURL('image/PNG');
@@ -192,6 +198,6 @@ export class ImpuestosAutTableComponent implements OnInit, OnChanges, OnDestroy 
       return doc;
     }).then((docResult) => {
       docResult.save(`${new Date().toISOString()}_boleta_imp_aut.pdf`);
-    });
+    });*/
   }
 }
