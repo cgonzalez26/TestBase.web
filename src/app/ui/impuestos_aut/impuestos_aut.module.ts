@@ -10,6 +10,7 @@ import { NgxPermissionsGuard } from 'ngx-permissions';
 
 import { CommonModule } from '@angular/common';
 import { ImpuestosAutService } from 'app/services/impuestos_aut/impuestos_aut.service';
+import { VehiculosService } from 'app/services/vehiculos/vehiculos.service';
 import { ImpuestosAutComponent } from './impuestos_aut.component';
 import { ImpuestosAutDialogComponent } from './impuestos_aut-dialog/impuestos_aut-dialog.component';
 import { ImpuestosAutTableComponent } from './impuestos_aut-table/impuestos_aut-table.component';
@@ -91,7 +92,8 @@ const routes = [
     ImpuestosAutDialogComponent,
   ],
   providers: [
-    ImpuestosAutService        
+    ImpuestosAutService,
+    VehiculosService        
   ]
 })
 export class ImpuestosAutModule { }

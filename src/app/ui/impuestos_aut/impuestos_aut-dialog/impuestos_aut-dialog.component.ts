@@ -1,4 +1,6 @@
 import { ImpuestosAutService } from './../../../services/impuestos_aut/impuestos_aut.service';
+import { TitularesService } from './../../../services/titulares/titulares.service';
+import { VehiculosService } from './../../../services/vehiculos/vehiculos.service';
 import { ImpuestosAut } from './../../../models/impuestos_aut/impuestos_aut';
 import { Component, Inject, ViewChild, ElementRef, OnInit } from '@angular/core';
 /*import { MatDialogRef, MAT_DIALOG_DATA, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS, MatDatepicker } from '@angular/material';*/
@@ -6,6 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 //import { MatDatepicker, } from '@angular/material/datepicker';
 //import { MAT_DATE_LOCALE, MAT_DATE_FORMATS,DateAdapter } from '@angular/material/core';
 
+import { Titular } from './../../../models/titulares/titular';
 import { FormGroup, FormBuilder, Validators, FormControl, ValidatorFn } from '@angular/forms';
 import { isEqual, omit } from 'lodash';
 import { SweetAlert2Helper } from 'app/helpers/sweet-alert-2.helper';
@@ -16,11 +19,14 @@ import * as moment from 'moment';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { Vehiculo } from 'app/models/vehiculos/vehiculo';
+import { AuthenticationService } from "../../../services/authentication/authentication.service";
+import { ImpuestoAutPrint } from './../../../models/impuestos_aut/impuestos_aut_print';
 
 export interface DialogData {
   titleTranslationCode: string;
   action: string;
-  form: ImpuestosAut;
+  form: ImpuestoAutPrint;
 }
 
 @Component({
@@ -37,37 +43,48 @@ export class ImpuestosAutDialogComponent implements OnInit {
   rowCopy: ImpuestosAut = new ImpuestosAut();
   saveCallback: (any) => void;  
   diaVencimiento: string="15";
+  titular: Titular;
+  vehiculo: Vehiculo;
 
   constructor(
     public _matDialogRef: MatDialogRef<ImpuestosAutDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private _dialogData: DialogData,
     private _formBuilder: FormBuilder,
     private _sweetAlert2Helper: SweetAlert2Helper,
-    private _establecimientosService: ImpuestosAutService,
+    private _impuestosAutService: ImpuestosAutService,
+    private _titularesService: TitularesService,
+    private _vehiculosService: VehiculosService,
+    private _authenticationService: AuthenticationService
   ) { 
     this.dialogBlockUI.start('Cargando...');
     this.title = _dialogData.titleTranslationCode ? _dialogData.titleTranslationCode : 'COMMON.NOT_AVAILABLE';
     this.action = _dialogData.action ? _dialogData.action : 'add';
-    this.form = _dialogData.form ? _dialogData.form : new ImpuestosAut();   
+    this.form = _dialogData.form ? _dialogData.form : new ImpuestoAutPrint();   
     this.rowCopy = JSON.parse(JSON.stringify(this.form));
     this.dialogForm = this.createDialogForm();
-    this.saveCallback = null;
+    this.saveCallback = null;    
     this.dialogBlockUI.stop();
   }
 
   ngOnInit(): void {
     this.dialogBlockUI.start('Cargando...');
-    /*combineLatest(
-        //this._establecimientosService.getTipoEstablecimientos(),
-    ).subscribe(      
-      ([]) => {
-            //this.tipoestablecimientos = _tipos;            
-            //this.categories = _categories[0].SportCategories;
-            this.dialogBlockUI.stop();
-        }, error => {
-            this._sweetAlert2Helper.error('Error', 'Ocurrió un error recuperando los formularios. Detalle: ' + error.Message, null, false);
-            this.dialogBlockUI.stop();
-      }); */ 
+    /*const currentUser = this._authenticationService.usuario;
+    if (!this.titular) {
+      combineLatest(
+          this._titularesService.getByNroDocumento(currentUser.sNroDocumento),
+          //this._vehiculosService.getById(this.form.VehiculoId)
+      ).subscribe(      
+        ([_titu]) => {
+              console.log('TITULAR  ',_titu)
+              this.titular = _titu;            
+              //this.vehiculo = _vehi;
+              this.dialogBlockUI.stop();
+          }, error => {
+              this._sweetAlert2Helper.error('Error', 'Ocurrió un error recuperando los formularios. Detalle: ' + error.Message, null, false);
+              this.dialogBlockUI.stop();
+        }); 
+        this.dialogBlockUI.stop();
+      } */
       this.dialogBlockUI.stop();
   }
 

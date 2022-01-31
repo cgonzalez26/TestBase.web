@@ -15,7 +15,10 @@ import { ImpuestosAutDialogComponent } from './impuestos_aut-dialog/impuestos_au
 import { BaseTableOptions } from 'app/base/base-table/base-table-options';
 import { ImpuestosAut } from 'app/models/impuestos_aut/impuestos_aut';
 import { AuthenticationService } from "../../services/authentication/authentication.service";
+import { VehiculosService } from "../../services/vehiculos/vehiculos.service";
 import { Console } from 'console';
+import { Vehiculo } from 'app/models/vehiculos/vehiculo';
+import { ImpuestoAutPrint } from 'app/models/impuestos_aut/impuestos_aut_print';
 
 @Component({
   selector: 'impuestos_aut',
@@ -30,6 +33,7 @@ export class ImpuestosAutComponent implements OnInit {
   dialogRef: any;
   baseTableOptions: BaseTableOptions;
   sNroDocumento: string = "";
+  row_print: ImpuestoAutPrint;
 
   constructor(
     private _impuestos_autService: ImpuestosAutService,
@@ -38,7 +42,8 @@ export class ImpuestosAutComponent implements OnInit {
     private _fuseConfigService: FuseConfigService,
     private _fuseTranslationLoaderService: FuseTranslationLoaderService,
     private router: Router,
-    private _authenticationService: AuthenticationService,    
+    private _authenticationService: AuthenticationService, 
+    private _vehiculosService: VehiculosService,  
   ) { 
     this._fuseConfigService.config = {
       layout: {
@@ -97,16 +102,16 @@ export class ImpuestosAutComponent implements OnInit {
 
   edit(row: ImpuestosAut): void {
     this._impuestos_autService.getById(row.Id).subscribe((impForm: ImpuestosAut) =>{
-      row = impForm;  
+      row = impForm;
       this.dialogRef = this._matDialog.open(ImpuestosAutDialogComponent, {
           panelClass: 'form-dialog',
           width: '50%',
-          height: '80%',
+          height: '85%',
           disableClose: true,          
           data: {
               titleTranslationCode: 'Impresión Boleta de Impuesto Automotor',
               action: 'edit',
-              form: row
+              form: row,
           }
       });
     })

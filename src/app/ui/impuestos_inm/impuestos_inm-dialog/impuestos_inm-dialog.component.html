@@ -38,10 +38,9 @@
                     <tr>
                         <td colspan="3">
                             <table id="tblDatosTitular" style="width: 100%;">
-                                <tr><th style="text-align: left;width: 80px;">Titular:</th><td>CRISIAN GONZALEZ</td></tr>
-                                <tr><th style="text-align: left;">DNI:</th><td>28105434</td></tr>
-                                <tr><th style="text-align: left;">Domicilio:</th><td>ARMADA ARGENTINA AVDA Piso:2 Depto:226
-                                    Sector/Bloque:26 Salta Capital</td></tr>
+                                <tr><th style="text-align: left;width: 80px;">Titular:</th><td>{{titular.sNombre}} {{titular.sApellido}}</td></tr>
+                                <tr><th style="text-align: left;">DNI:</th><td>{{titular.sNroDocumento}}</td></tr>
+                                <tr><th style="text-align: left;">Domicilio:</th><td>{{titular.sDomicilio}}</td></tr>
                             </table>        
                         </td>
                     </tr>    
@@ -52,7 +51,7 @@
                         <td>
                             <table style="width: 100%; text-align: center;">
                                 <tr><th>Importe</th></tr>
-                                <tr><td>350</td></tr>
+                                <tr><td>{{form.nMonto_Pagar}}</td></tr>
                             </table>
                         </td>
                     </tr>

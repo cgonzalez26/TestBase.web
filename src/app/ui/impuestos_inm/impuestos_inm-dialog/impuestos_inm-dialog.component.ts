@@ -16,6 +16,9 @@ import * as moment from 'moment';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { Titular } from 'app/models/titulares/titular';
+import { AuthenticationService } from "../../../services/authentication/authentication.service";
+import { TitularesService } from './../../../services/titulares/titulares.service';
 
 export interface DialogData {
   titleTranslationCode: string;
@@ -38,13 +41,16 @@ export class ImpuestosInmDialogComponent implements OnInit {
   saveCallback: (any) => void;
   tipoestablecimientos : any[];
   diaVencimiento: string="15";
-
+  titular: Titular;
+  
   constructor(
     public _matDialogRef: MatDialogRef<ImpuestosInmDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private _dialogData: DialogData,
     private _formBuilder: FormBuilder,
     private _sweetAlert2Helper: SweetAlert2Helper,
     private _establecimientosService: ImpuestosInmService,
+    private _titularesService: TitularesService,
+    private _authenticationService: AuthenticationService
   ) { 
     this.dialogBlockUI.start('Cargando...');
     this.title = _dialogData.titleTranslationCode ? _dialogData.titleTranslationCode : 'COMMON.NOT_AVAILABLE';
@@ -58,11 +64,12 @@ export class ImpuestosInmDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.dialogBlockUI.start('Cargando...');
+    const currentUser = this._authenticationService.usuario;
     combineLatest(
-        //this._establecimientosService.getTipoEstablecimientos(),
+      this._titularesService.getByNroDocumento(currentUser.sNroDocumento),
     ).subscribe(      
-      ([]) => {
-            //this.tipoestablecimientos = _tipos;            
+      ([_titu]) => {
+            this.titular = _titu;             
             //this.categories = _categories[0].SportCategories;
             this.dialogBlockUI.stop();
         }, error => {

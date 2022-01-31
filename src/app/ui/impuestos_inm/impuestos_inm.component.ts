@@ -100,7 +100,7 @@ export class ImpuestosInmComponent implements OnInit {
       this.dialogRef = this._matDialog.open(ImpuestosInmDialogComponent, {
           panelClass: 'form-dialog',
           width: '50%',
-          height: '80%',
+          height: '85%',
           disableClose: true,
           data: {
               titleTranslationCode: 'Impresión Boleta de Impuesto Inmobiliario',
