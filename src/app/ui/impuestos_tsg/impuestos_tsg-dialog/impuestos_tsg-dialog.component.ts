@@ -70,7 +70,6 @@ export class ImpuestosTsgDialogComponent implements OnInit {
     ).subscribe(      
       ([_titu]) => {
             this.titular = _titu;                  
-            //this.categories = _categories[0].SportCategories;
             this.dialogBlockUI.stop();
         }, error => {
             this._sweetAlert2Helper.error('Error', 'Ocurrió un error recuperando los formularios. Detalle: ' + error.Message, null, false);
@@ -83,7 +82,6 @@ export class ImpuestosTsgDialogComponent implements OnInit {
       sDominio: [this.form.sCatastro, [Validators.required]],
       iAnio: [this.form.iAnio],
       iPeriodo: [this.form.iPeriodo],
-      //TipoEstablecimientoId: [this.form.TipoEstablecimientoId],
     });        
     return formGroup;
   }
@@ -115,7 +113,7 @@ export class ImpuestosTsgDialogComponent implements OnInit {
       doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
       return doc;
     }).then((docResult) => {
-      docResult.save(`${new Date().toISOString()}_boleta_imp_inm.pdf`);
+      docResult.save(`${new Date().toISOString()}_boleta_imp_tsg.pdf`);
     });
   }
 
