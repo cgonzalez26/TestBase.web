@@ -12,7 +12,7 @@
 
     <div id="divPrintBoleta" mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
         <form [formGroup]="dialogForm" autocomplete="off">
-            <div fxLayout="row">
+            <div fxLayout="row" *ngIf = "titular">
                 <table id="tblBoleta" style="width: 100%;height: 300px;border-spacing:0px;">
                     <tr>
                         <td style="text-align: center;width: 30%;">
@@ -38,17 +38,17 @@
                     <tr>
                         <td colspan="3">
                             <table id="tblDatosTitular" style="width: 100%;">
-                                <tr><th style="text-align: left;width: 80px;">Titular:</th><td>Sergio Nuñez</td></tr>
-                                <tr><th style="text-align: left;">DNI:</th><td>666</td></tr>
-                                <tr><th style="text-align: left;">Domicilio:</th><td>Zuviria 1100</td></tr>
+                                <tr><th style="text-align: left;width: 80px;">Titular:</th><td>{{titular.sNombre}}  {{titular.sApellido}}</td></tr>
+                                <tr><th style="text-align: left;">DNI:</th><td>{{titular.sNroDocumento}}</td></tr>
+                                <tr><th style="text-align: left;">Domicilio:</th><td>{{titular.sDomicilio}}</td></tr>
                             </table>        
                         </td>
                     </tr>    
                     <tr>
-                        <td style="width: 70%;" colspan="2">
+                        <td style="width: 70%;" colspan="2" *ngIf = "vehiculo">
                             <table id="tblDatosVehiculo" style="width: 100%;">
-                                <tr><th style="text-align: left;width: 80px;">Marca:</th><td>Citroen</td></tr>
-                                <tr><th style="text-align: left;">Modelo:</th><td>C3</td></tr>
+                                <tr><th style="text-align: left;width: 80px;">Marca:</th><td>{{vehiculo.sMarca}}</td></tr>
+                                <tr><th style="text-align: left;">Modelo:</th><td>{{vehiculo.sModelo}}</td></tr>
                             </table>
                         </td>
                         <td>

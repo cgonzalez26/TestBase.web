@@ -70,7 +70,6 @@ export class ImpuestosInmDialogComponent implements OnInit {
     ).subscribe(      
       ([_titu]) => {
             this.titular = _titu;             
-            //this.categories = _categories[0].SportCategories;
             this.dialogBlockUI.stop();
         }, error => {
             this._sweetAlert2Helper.error('Error', 'Ocurrió un error recuperando los formularios. Detalle: ' + error.Message, null, false);

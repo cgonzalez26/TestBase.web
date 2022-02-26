@@ -63,29 +63,31 @@ export class ImpuestosAutDialogComponent implements OnInit {
     this.rowCopy = JSON.parse(JSON.stringify(this.form));
     this.dialogForm = this.createDialogForm();
     this.saveCallback = null;    
+    
     this.dialogBlockUI.stop();
   }
 
   ngOnInit(): void {
     this.dialogBlockUI.start('Cargando...');
-    /*const currentUser = this._authenticationService.usuario;
+    const currentUser = this._authenticationService.usuario;
     if (!this.titular) {
       combineLatest(
           this._titularesService.getByNroDocumento(currentUser.sNroDocumento),
-          //this._vehiculosService.getById(this.form.VehiculoId)
+          this._vehiculosService.getById(this.form.VehiculoId)
       ).subscribe(      
-        ([_titu]) => {
-              console.log('TITULAR  ',_titu)
+        ([_titu,_vehi]) => {
+              //console.log('TITULAR  ',_titu)
               this.titular = _titu;            
-              //this.vehiculo = _vehi;
+              this.vehiculo = _vehi;
               this.dialogBlockUI.stop();
           }, error => {
               this._sweetAlert2Helper.error('Error', 'Ocurrió un error recuperando los formularios. Detalle: ' + error.Message, null, false);
               this.dialogBlockUI.stop();
         }); 
         this.dialogBlockUI.stop();
-      } */
-      this.dialogBlockUI.stop();
+      } 
+    
+    this.dialogBlockUI.stop();
   }
 
   createDialogForm(): FormGroup {
