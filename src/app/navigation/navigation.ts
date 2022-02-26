@@ -16,16 +16,7 @@ export const navigation: FuseNavigation[] = [
                 icon: "home",
                 url: "/ui/home",
                 permission: "PAGES_HOME",
-            },
-        ],
-    },
-    {
-        id: "management",
-        title: "Management",
-        translate: "NAV.MANAGEMENT.TITLE",
-        type: "group",
-        permission: "PAGES_MANAGEMENT",
-        children: [
+            },            
             {
                 id: "establecimientos",
                 title: "Establecimientos",
@@ -71,6 +62,24 @@ export const navigation: FuseNavigation[] = [
                 url: "ui/management/usuarios",
                 permission: "PAGES_MANAGEMENT_USERS",
             },
+        ],
+    },
+    {
+        id: "management",
+        title: "Management",
+        translate: "NAV.MANAGEMENT.TITLE",
+        type: "group",
+        permission: "PAGES_MANAGEMENT",
+        children: [
+            {
+                id: "usuarios",
+                title: "Usuarios",
+                translate: "Usuarios",//"NAV.MANAGEMENT.ESTABLECIMIENTOS.TITLE",
+                type: "item",
+                icon: "location_city",
+                url: "ui/management/usuarios",
+                permission: "PAGES_SECURITY",
+            }
         ],
     },    
 ];

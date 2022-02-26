@@ -27,16 +27,16 @@
                 </div>
             </div>
             <div fxLayout="row">
-                <!--<div fxFlex="50" class="mr-4">
+                <div fxFlex="50" class="mr-4">
                     <mat-form-field class="w-100-p">
-                        <input matInput name="DocumentNumber" formControlName="DocumentNumber" placeholder="Número de Documento"
-                            required minlength="3" autocomplete="off">
+                        <input matInput name="sNroDocumento" formControlName="sNroDocumento" placeholder="Número de Documento"
+                            minlength="3" autocomplete="off">
                     </mat-form-field>
-                </div>-->
+                </div>
                 <div fxFlex="50" class="ml-4">
                     <mat-form-field class="w-100-p">
                         <input matInput name="Telefono" formControlName="Telefono" placeholder="Teléfono"
-                            required minlength="3" maxlength="15" autocomplete="off">
+                            minlength="3" maxlength="15" autocomplete="off">
                     </mat-form-field>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                 <div fxFlex="50" class="mr-4">
                     <mat-form-field class="w-100-p">
                         <input matInput name="Email" formControlName="Email" placeholder="E-mail"
-                            required minlength="3" autocomplete="off">
+                            minlength="3" autocomplete="off">
                     </mat-form-field>
                 </div>
                 <div fxFlex="50" class="ml-4">
@@ -60,27 +60,49 @@
                     </mat-form-field>
                 </div>
             </div>            
-            <!--<div fxLayout="row">
+            <div fxLayout="row">
                 <div fxFlex="50" class="mr-4">
-                    <mat-form-field class="w-95-p">
-                        <mat-select name="GenderId" formControlName="GenderId" placeholder="Género" required>
-                            <mat-option *ngFor="let gen of genders" [value]="gen.Id">
-                                {{gen.Name}}
-                            </mat-option>
-                        </mat-select>
+                    <mat-form-field class="w-100-p">
+                        <input matInput name="UsuarioNombre" formControlName="UsuarioNombre" placeholder="Usuario"
+                            required minlength="3" autocomplete="off">
                     </mat-form-field>
                 </div>
                 <div fxFlex="50" class="ml-4">
                     <mat-form-field class="w-95-p">
-                        <mat-select name="SportId" formControlName="SportId" placeholder="Deporte" required>
-                            <mat-option *ngFor="let dep of sports" [value]="dep.Id">
-                                {{dep.Name}}
+                        <mat-select name="RolId" formControlName="RolId" placeholder="Rol" required>
+                            <mat-option *ngFor="let rol of roles" [value]="rol.Id">
+                                {{rol.Nombre}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
-            </div>-->           
-        
+            </div>           
+            <div fxLayout="row">
+                <div fxFlex="50" class="mr-4">
+                    <mat-form-field class="w-100-p">                        
+                        <input matInput name="Password" formControlName="Password"                         
+                        placeholder="Contraseña"
+                        [type]="hidePassword ? 'password' : 'text'"
+                        (blur)="onBlurPassword()">
+                        <mat-icon matSuffix [ngClass]="hidePassword ? 'secure' : 'insecure'"
+                        (click)="hidePassword = !hidePassword">
+                  {{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <mat-error>Campo requerido</mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50" class="mr-4">
+                    <mat-form-field class="w-100-p">
+                        <input matInput name="ConfirmPassword" formControlName="ConfirmPassword" 
+                        placeholder="Confirmar Contraseña"
+                        [type]="hidePassword ? 'password' : 'text'"
+                        (blur)="onBlurPassword()">
+                        <mat-icon matSuffix [ngClass]="hidePassword ? 'secure' : 'insecure'"
+                        (click)="hidePassword = !hidePassword">
+                  {{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <mat-error>Campo requerido</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
         </form>
     </div>
 

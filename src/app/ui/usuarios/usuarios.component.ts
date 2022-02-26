@@ -65,13 +65,14 @@ export class UsuariosComponent implements OnInit {
     this.dialogBlockUI.start('Cargando...');
     if (!this.forms || this.forms.length == 0) {
         combineLatest(
-            this._usuariosService.getByUser()
+            this._usuariosService.getAll()
         ).subscribe(
             ([_forms]) => {
                 this.forms$ = this._usuariosService.getEntities();
+                console.log('usuarios ',this.forms$);
                 this.dialogBlockUI.stop();
             }, error => {
-                this._sweetAlert2Helper.error('Error', 'Ocurrió un error recuperando los Deportistas. Detalle: ' + error.Message, null, false);
+                this._sweetAlert2Helper.error('Error', 'Ocurrió un error recuperando los Usuarios. Detalle: ' + error.Message, null, false);
                 this.dialogBlockUI.stop();
             });
     } else {
@@ -83,10 +84,10 @@ export class UsuariosComponent implements OnInit {
     this.dialogRef = this._matDialog.open(UsuariosDialogComponent, {
         panelClass: 'form-dialog',
         width: '50%',
-        height: '70%',
+        height: '85%',
         disableClose: true,
         data: {
-            titleTranslationCode: 'Crear Deportista',
+            titleTranslationCode: 'Agregar Usuario',
             action: 'add',
             form: null
         }
@@ -100,20 +101,20 @@ export class UsuariosComponent implements OnInit {
   }
 
   edit(row: Usuario): void {
-    /*this._usuariosService.getUsersAthleteByUserCode(row.UserCode).subscribe((usersForm: Usuario) =>{
+    this._usuariosService.getById(row.Id).subscribe((usersForm: Usuario) =>{
       row = usersForm;  
       this.dialogRef = this._matDialog.open(UsuariosDialogComponent, {
           panelClass: 'form-dialog',
           width: '50%',
-          height: '70%',
+          height: '85%',
           disableClose: true,
           data: {
-              titleTranslationCode: 'Editar Deportista',
+              titleTranslationCode: 'Editar Usuario',
               action: 'edit',
               form: row
           }
       });
-    })*/
+    })
   }
 
   onActivate(row: Usuario) {

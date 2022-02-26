@@ -7,6 +7,11 @@
 
 <ngx-datatable #table id="tableForm" class="material h600" [rows]="filteredRows | async" [columnMode]="'force'"
     [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="6" [messages]="messages" (activate)="activate($event)">
+    <ngx-datatable-column prop="UsuarioNombre" name="Usuario" [width]="25">
+        <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+            <span>{{row.UsuarioNombre ? row.UsuarioNombre : 'No disponible'}}</span>
+        </ng-template>
+    </ngx-datatable-column>
     <ngx-datatable-column prop="Apellidos" name="Apellidos" [width]="25">
         <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
             <span>{{row.Apellidos ? row.Apellidos : 'No disponible'}}</span>
@@ -15,6 +20,11 @@
     <ngx-datatable-column prop="Nombres" name="Nombres" [width]="25">
         <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
             <span>{{row.Nombres ? row.Nombres : 'No disponible'}}</span>
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column prop="Email" name="Email" [width]="25">
+        <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+            <span>{{row.Email ? row.Email : 'No disponible'}}</span>
         </ng-template>
     </ngx-datatable-column>
     <!-- <ngx-datatable-column prop="Institucion" name="Institucion" [width]="25">

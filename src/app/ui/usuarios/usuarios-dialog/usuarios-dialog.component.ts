@@ -14,6 +14,7 @@ import { NgBlockUI, BlockUI } from 'ng-block-ui';
 import { Observable, combineLatest } from 'rxjs';
 import * as moment from 'moment';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { RolesService } from 'app/services/roles/roles.service';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -35,7 +36,7 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-usuarios-dialog',
+  selector: 'usuarios-dialog',
   templateUrl: './usuarios-dialog.component.html',
   styleUrls: ['./usuarios-dialog.component.scss'],
   providers: [
@@ -57,9 +58,8 @@ export class UsuariosDialogComponent implements OnInit {
     form: Usuario; 
     rowCopy: Usuario = new Usuario();
     saveCallback: (any) => void;
-    genders : any[];
-    sports : any[];
-    categories : any[];
+    roles : any[];
+    hidePassword:boolean = true;
 
     public patronLetras = {
       U: { pattern: new RegExp('[a-zA-ZñÑáéíóúÁÉÍÓÚ/ ]') }
@@ -75,6 +75,7 @@ export class UsuariosDialogComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _sweetAlert2Helper: SweetAlert2Helper,
     private _usuariosService: UsuariosService,        
+    private _rolesService: RolesService,
     ) { 
       this.dialogBlockUI.start('Cargando...');
       this.title = _dialogData.titleTranslationCode ? _dialogData.titleTranslationCode : 'COMMON.NOT_AVAILABLE';
@@ -87,36 +88,92 @@ export class UsuariosDialogComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.dialogBlockUI.start('Cargando...');
+    combineLatest(
+        this._rolesService.getAll(),
+    ).subscribe(      
+      ([_roles]) => {
+            console.log('roles ',_roles);
+            this.roles = _roles;                        
+            this.dialogBlockUI.stop();
+        }, error => {
+            this._sweetAlert2Helper.error('Error', 'Ocurrió un error recuperando los Roles. Detalle: ' + error.Message, null, false);
+            this.dialogBlockUI.stop();
+      });     
+
   }
 
   createDialogForm(): FormGroup {
     const formGroup = this._formBuilder.group({
-     /* Nombres: [this.form.Usuario.Nombres, [Validators.required]],
-      Apellidos: [this.form.Usuario.Apellidos, [Validators.required]],
-      //  DocumentNumber: [this.form.Usuario.DocumentNumber],
-        Telefono: [this.form.Usuario.Telefono],
-        Email: [this.form.Usuario.Email],
-        FechaNacimiento: [this.form.Usuario.FechaNacimiento],       
-        GenderId: [this.form.Usuario.GenderId]//,*/
+      sNroDocumento: [this.form.sNroDocumento],
+      UsuarioNombre: [this.form.UsuarioNombre],
+      Nombres: [this.form.Nombres, [Validators.required]],
+      Apellidos: [this.form.Apellidos],      
+      Telefono: [this.form.Telefono],
+      Email: [this.form.Email],
+      FechaNacimiento: [this.form.FechaNacimiento],       
+      RolId: [this.form.RolId],
+      Password: [this.form.Password],
+      ConfirmPassword: [this.form.Password]
     });        
     return formGroup;
   }
+
   setRawValues(): any {
     const rawValue = this.dialogForm.getRawValue();
-    /*this.form.Usuario.FirstName = rawValue.FirstName;
-    this.form.Usuario.LastName = rawValue.LastName;
-    this.form.Usuario.DocumentNumber = rawValue.DocumentNumber;
-    this.form.Usuario.PhoneNumber = rawValue.PhoneNumber;
-    this.form.Usuario.Mail = rawValue.Mail;
-    this.form.Usuario.BirthDate = rawValue.BirthDate;
-    this.form.Weight = rawValue.Weight;
-    this.form.Height = rawValue.Height;
-    this.form.Usuario.GenderId = rawValue.GenderId;*/
+    this.form.sNroDocumento = rawValue.sNroDocumento;
+    this.form.UsuarioNombre = rawValue.UsuarioNombre;
+    this.form.Nombres = rawValue.Nombres;
+    this.form.Apellidos = rawValue.Apellidos;
+    this.form.Telefono = rawValue.Telefono;
+    this.form.Email = rawValue.Email;
+    this.form.FechaNacimiento = rawValue.FechaNacimiento;
+    this.form.RolId = rawValue.RolId;
+    this.form.Password = rawValue.Password;
   } 
+
+  onBlurPassword(): void {
+    !this.hidePassword ? this.hidePassword = !this.hidePassword : this.hidePassword;
+    if (this.dialogForm.get('Password').value == this.dialogForm.get('ConfirmPassword').value) {
+        this.dialogForm.get('Password').setErrors = null;
+        this.dialogForm.get('ConfirmPassword').setErrors = null;
+        this.dialogForm.get('Password').updateValueAndValidity();
+        this.dialogForm.get('ConfirmPassword').updateValueAndValidity();
+    }
+  }
+
   cancel() {
     this._matDialogRef.close();
   }
+
   save() {
+    this.dialogBlockUI.start('Guardando...');
     this.setRawValues();
+    if (this.action === 'add') {
+      this._usuariosService.addForm(this.form).subscribe((result: any) => {
+        console.log('entra addForm',result);
+
+          if (result){
+              console.log('entra addEntity');
+              this._usuariosService.addEntity(this.form);
+              this._sweetAlert2Helper.success('Aviso', 'Usuario agregado correctamente', null, true);
+              this._matDialogRef.close();
+          } else{
+              this._sweetAlert2Helper.error('Error', 'Ocurrió un error al registrar el Usuario', null, true);
+          }
+      }, error => {
+          this.dialogBlockUI.stop();
+          this._sweetAlert2Helper.error('Error', error.Message, null, true);
+      });
+    }else{
+      this._usuariosService.editWeb(this.form).subscribe((result: any) => {
+          this.dialogBlockUI.stop();
+          this._sweetAlert2Helper.success('Aviso', 'Usuario editado correctamente', null, true);
+          this._matDialogRef.close();
+      }, error => {
+          this.dialogBlockUI.stop();
+          this._sweetAlert2Helper.error('Error', error.Message, null, true);
+      });
+    }
   }
 }

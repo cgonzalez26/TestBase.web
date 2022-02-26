@@ -20,7 +20,7 @@ export class UsuariosService extends BaseService<Usuario>{
       http: HttpClient,
       private readonly httpClient: HttpClient
   ) { 
-    super(http, 'Forms');
+    super(http, 'Usuarios');
     this.formBehaviorSubject = new BehaviorSubject<Usuario>(JSON.parse(localStorage.getItem(environment.localStorageEditItem)));
     this.formObservable = this.formBehaviorSubject.asObservable();
   }
@@ -74,7 +74,9 @@ public getUsersByForm(codformulario: string) {
 }
 
 public addForm(form: Usuario) {   
-    const url = 'Usuarios/mobile/add';
+    //const url = 'Usuarios/mobile/add';
+    const url = `${this.controller}/add2`;
+    console.log('addform ',form);
     return this.HttpClient.post<Usuario>(url, form).pipe(map(response => {
         return response;
     }));
@@ -96,7 +98,8 @@ public editForm(form: Usuario) {
 
 public editWeb(form: Usuario) { //UsuarioDto
     const url = `${this.controller}/web/update`;
-    return this.HttpClient.put<Usuario>(url, form).pipe(map(response => {
+    console.log('editweb ',form);
+    return this.HttpClient.post<Usuario>(url, form).pipe(map(response => {
         return response;
     }));
 }

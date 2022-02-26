@@ -8,7 +8,7 @@ import { TranslationService } from './../../../services/translation/translation.
 import { takeUntil, debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-usuarios-table',
+  selector: 'usuarios-table',
   templateUrl: './usuarios-table.component.html',
   styleUrls: ['./usuarios-table.component.scss']
 })
@@ -49,6 +49,7 @@ export class UsuariosTableComponent implements OnInit, OnChanges, OnDestroy  {
   }
 
   ngOnInit(): void {
+    console.log('usuarios table ',this.forms$);
     this.filteredRows = this.forms$;
   }
 

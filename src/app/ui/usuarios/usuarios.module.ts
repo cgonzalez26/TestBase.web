@@ -1,4 +1,5 @@
 import { UsuariosService } from 'app/services/usuarios/usuarios.service';
+import { RolesService } from 'app/services/roles/roles.service';
 import { UsuariosTableComponent } from './usuarios-table/usuarios-table.component';
 
 // Angular Imports
@@ -104,7 +105,8 @@ const routes = [
         UsuariosDialogComponent,
     ],
     providers: [
-        UsuariosService        
+        UsuariosService,
+        RolesService
     ]
 })
 export class UsuariosModule {
