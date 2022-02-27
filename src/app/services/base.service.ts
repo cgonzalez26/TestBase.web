@@ -109,4 +109,11 @@ export class BaseService<T extends BaseModel> {
             })
         );
     }
+
+    deleteRow(entity: T,field:string){
+        let entities = this.entitiesBehaviorSubject.value;
+        const index = entities.findIndex(e => e[field] == entity[field]);
+        this.entities.splice(index,1);
+        this.setEntities(this.entities);
+    }
 }

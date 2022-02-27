@@ -6,6 +6,8 @@ import { FormControl } from '@angular/forms';
 import { UsuariosService } from './../../../services/usuarios/usuarios.service';
 import { TranslationService } from './../../../services/translation/translation.service';
 import { takeUntil, debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { SweetAlert2Helper } from 'app/helpers/sweet-alert-2.helper';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'usuarios-table',
@@ -14,9 +16,11 @@ import { takeUntil, debounceTime, distinctUntilChanged, map } from 'rxjs/operato
 })
 export class UsuariosTableComponent implements OnInit, OnChanges, OnDestroy  {
   @ViewChild(DatatableComponent, {static: false}) table: DatatableComponent;
+  @BlockUI('BlockUsuario') dialogBlockUI: NgBlockUI;    
   @Input() forms$: Observable<Usuario[]>;
   @Output() onAdd: EventEmitter<void>;
   @Output() onEdit: EventEmitter<any>;
+  @Output() onDelete: EventEmitter<any>;
   @Output() onActivate: EventEmitter<any>;
 
   searchInput: FormControl;
@@ -30,10 +34,12 @@ export class UsuariosTableComponent implements OnInit, OnChanges, OnDestroy  {
 
   constructor(private _translationService: TranslationService,
     private _usuariosService: UsuariosService,
+    private _sweetAlert2Helper: SweetAlert2Helper,
   ) { 
     this._unsubscribeAll = new Subject();
     this.onAdd = new EventEmitter<void>();
     this.onEdit = new EventEmitter<any>();
+    this.onDelete = new EventEmitter<any>();
     this.onActivate = new EventEmitter<any>();
     this.messages.emptyMessage = this._translationService.noDataAvailable;
     this.searchInput = new FormControl('');
@@ -87,5 +93,21 @@ export class UsuariosTableComponent implements OnInit, OnChanges, OnDestroy  {
           this.onActivate.emit(row.row);
       }        
   }
+
+  remove(row: Usuario): void {
+    this._sweetAlert2Helper.question('Atención', '¿Desea eliminar el Usuario ' + row.UsuarioNombre + '?', 'SI', 'NO', () => {
+      this.dialogBlockUI.start();
+      this._usuariosService.delete(row.Id).subscribe(response => {              
+          this.onDelete.emit();
+          this._usuariosService.deleteRow(row, 'Id');
+          this._sweetAlert2Helper.success('Exito', 'Se ha eliminado el Usuario', null);
+          this.dialogBlockUI.stop();
+        }, error => {
+          this.dialogBlockUI.stop();
+        });
+    }, () => {
+    });         
+}
+
 
 }

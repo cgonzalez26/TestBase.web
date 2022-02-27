@@ -4,7 +4,7 @@
             <h2>{{'PAGES.FORMS.TITLE' | translate}}</h2>
         </div>
         <div fxFlex fusePerfectScrollbar>
-            <usuarios-table [forms$]="forms$" (onAdd)="add()" (onEdit)="edit($event)" (onActivate)="onActivate($event)"></usuarios-table>
+            <usuarios-table [forms$]="forms$" (onAdd)="add()" (onEdit)="edit($event)" (onDelete)="delete()" (onActivate)="onActivate($event)"></usuarios-table>
         </div>
     </div>
   </div>

@@ -5,7 +5,7 @@
     Agregar Usuario
 </button>
 
-<ngx-datatable #table id="tableForm" class="material h600" [rows]="filteredRows | async" [columnMode]="'force'"
+<ngx-datatable #table id="tableForm" *blockUI="'BlockUsuario'" class="material h600" [rows]="filteredRows | async" [columnMode]="'force'"
     [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="6" [messages]="messages" (activate)="activate($event)">
     <ngx-datatable-column prop="UsuarioNombre" name="Usuario" [width]="25">
         <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
@@ -44,6 +44,10 @@
                     <button mat-menu-item (click)="edit(row)">
                         <mat-icon>edit</mat-icon>
                         <span>Editar</span>
+                    </button>
+                    <button mat-menu-item (click)="remove(row)">
+                        <mat-icon>delete</mat-icon>
+                        <span>Borrar</span>
                     </button>
                 </div>
             </mat-menu>

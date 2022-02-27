@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {BaseService} from '../base.service';
 import {map} from 'rxjs/operators';
 import {environment} from 'environments/environment';
+import { stringify } from 'querystring';
 //import {UsuarioDto} from 'app/main/models/usuario/Dto/usuarioDto';
 
 @Injectable({
@@ -98,9 +99,17 @@ public editForm(form: Usuario) {
 
 public editWeb(form: Usuario) { //UsuarioDto
     const url = `${this.controller}/web/update`;
+    let id: string;
+    id= this.form.Id;
     console.log('editweb ',form);
     return this.HttpClient.post<Usuario>(url, form).pipe(map(response => {
-        return response;
+        //return response;
+        const index = this.entities.findIndex((e) => e.Id == id);
+        if (index >= 0) {
+            this.entities[index] = form;
+            this.setEntities(this.entities);
+        }
+
     }));
 }
 

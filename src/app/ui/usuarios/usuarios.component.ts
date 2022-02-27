@@ -114,9 +114,14 @@ export class UsuariosComponent implements OnInit {
               form: row
           }
       });
-    })
+    })  
   }
 
+  delete(): void {
+    console.log("llego el mensaje");
+    this.ngOnInit();
+  }
+  
   onActivate(row: Usuario) {
     this._usuariosService.setForm(row);
   }
