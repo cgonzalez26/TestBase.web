@@ -4,7 +4,7 @@ export const navigation: FuseNavigation[] = [
     {
         id: "home_group",
         title: "Home Group",
-        translate: "NAV.HOME.TITLE",
+        translate: "NAV.PRINCIPAL.TITLE",
         type: "group",
         permission: "PAGES_HOME",
         children: [
@@ -69,7 +69,7 @@ export const navigation: FuseNavigation[] = [
         title: "Management",
         translate: "NAV.MANAGEMENT.TITLE",
         type: "group",
-        permission: "PAGES_MANAGEMENT",
+        permission: "PAGES_SECURITY",
         children: [
             {
                 id: "usuarios",

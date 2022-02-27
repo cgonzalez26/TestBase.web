@@ -82,7 +82,8 @@ export class UsuariosDialogComponent implements OnInit {
       this.action = _dialogData.action ? _dialogData.action : 'add';
       this.form = _dialogData.form ? _dialogData.form : new Usuario();   // Athlete();
       this.rowCopy = JSON.parse(JSON.stringify(this.form));
-      this.dialogForm = this.createDialogForm();
+      //this.dialogForm = this.createDialogForm();
+      this.createDialogForm();
       this.saveCallback = null;
       this.dialogBlockUI.stop();
     }
@@ -103,20 +104,25 @@ export class UsuariosDialogComponent implements OnInit {
 
   }
 
-  createDialogForm(): FormGroup {
-    const formGroup = this._formBuilder.group({
+  createDialogForm(): void{//FormGroup {
+    //const formGroup = this._formBuilder.group({
+    this.dialogForm = this._formBuilder.group({
       sNroDocumento: [this.form.sNroDocumento],
-      UsuarioNombre: [this.form.UsuarioNombre],
+      UsuarioNombre: [this.form.UsuarioNombre, [Validators.required]],
       Nombres: [this.form.Nombres, [Validators.required]],
-      Apellidos: [this.form.Apellidos],      
+      Apellidos: [this.form.Apellidos, [Validators.required]],      
       Telefono: [this.form.Telefono],
       Email: [this.form.Email],
       FechaNacimiento: [this.form.FechaNacimiento],       
-      RolId: [this.form.RolId],
+      RolId: [this.form.RolId, [Validators.required]],
       Password: [this.form.Password],
       ConfirmPassword: [this.form.Password]
     });        
-    return formGroup;
+    if (this.action === 'edit') {
+      this.dialogForm.get('Password').setValue('********');
+      this.dialogForm.get('ConfirmPassword').setValue('********');
+    }
+    //return formGroup;
   }
 
   setRawValues(): any {

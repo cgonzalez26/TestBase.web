@@ -83,7 +83,8 @@
                         <input matInput name="Password" formControlName="Password"                         
                         placeholder="Contraseña"
                         [type]="hidePassword ? 'password' : 'text'"
-                        (blur)="onBlurPassword()">
+                        (blur)="onBlurPassword()"
+                        required>
                         <mat-icon matSuffix [ngClass]="hidePassword ? 'secure' : 'insecure'"
                         (click)="hidePassword = !hidePassword">
                   {{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -95,7 +96,8 @@
                         <input matInput name="ConfirmPassword" formControlName="ConfirmPassword" 
                         placeholder="Confirmar Contraseña"
                         [type]="hidePassword ? 'password' : 'text'"
-                        (blur)="onBlurPassword()">
+                        (blur)="onBlurPassword()"
+                        required>
                         <mat-icon matSuffix [ngClass]="hidePassword ? 'secure' : 'insecure'"
                         (click)="hidePassword = !hidePassword">
                   {{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>

@@ -2,6 +2,9 @@ export const locale = {
     lang: "en",
     data: {
         NAV: {
+            PRINCIPAL:{
+                TITLE: "Principal",    
+            },
             HOME: {
                 TITLE: "Inicio",
             },
