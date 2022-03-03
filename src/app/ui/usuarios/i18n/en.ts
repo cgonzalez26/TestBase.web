@@ -3,7 +3,7 @@ export const locale = {
     data: {
         PAGES: {
             FORMS: {
-                TITLE: 'Users',
+                TITLE: 'ABM Users',
                 DESCRIPTION: 'ABM Users.',
             }
         }
