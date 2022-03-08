@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { LoginModule } from "./authentication/login/login.module";
+import { RegisterModule } from "./authentication/register/register.module";
 import { Error400Module } from "./errors/400/error-400.module";
 import { Error401Module } from "./errors/401/error-401.module";
 import { Error403Module } from "./errors/403/error-403.module";
@@ -7,7 +8,6 @@ import { Error404Module } from "./errors/404/error-404.module";
 import { Error500Module } from "./errors/500/error-500.module";
 import { HomeModule } from "./home/home.module";
 import { UsuariosModule } from "./usuarios/usuarios.module";
-import { RegisterModule } from "./authentication/register/register.module";
 import { EstablecimientosModule } from "./establecimientos/establecimientos.module";
 import { ImpuestosAutModule } from "./impuestos_aut/impuestos_aut.module";
 import { ImpuestosInmModule } from "./impuestos_inm/impuestos_inm.module";
@@ -17,13 +17,14 @@ import { ImpuestosTsgModule } from "./impuestos_tsg/impuestos_tsg.module";
 //import { UsuariosDialogComponent } from './usuarios/usuarios-dialog/usuarios-dialog.component';
 //import { BaseModule } from "../base/base.module";
 import { BlockUIModule } from "ng-block-ui";
-import { RegisterComponent } from './authentication/register/register.component';
+//import { RegisterComponent } from './authentication/register/register.component';
 
 @NgModule({
     imports: [
         // Authentication
         LoginModule,
-
+        RegisterModule,
+        
         // Errors
         Error400Module,
         Error401Module,
@@ -32,8 +33,7 @@ import { RegisterComponent } from './authentication/register/register.component'
         Error500Module,
 
         HomeModule,
-        UsuariosModule,
-        RegisterModule,
+        UsuariosModule,    
         EstablecimientosModule,
         ImpuestosAutModule,
         ImpuestosInmModule,
@@ -41,7 +41,7 @@ import { RegisterComponent } from './authentication/register/register.component'
         BlockUIModule,
         //BaseModule,
     ],
-    declarations: [RegisterComponent],
+    //declarations: [RegisterComponent],
     //declarations: [UsuariosComponent, UsuariosTableComponent, UsuariosDialogComponent],
 })
 export class UiModule {}
