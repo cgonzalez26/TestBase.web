@@ -19,6 +19,11 @@
                     required minlength="3" autocomplete="off">
                 </mat-form-field>
                 <mat-form-field appearance="outline">
+                    <mat-label>Nro. Documento</mat-label>
+                    <input matInput formControlName="sNroDocumento" placeholder="sNroDocumento"
+                    required minlength="3" autocomplete="off">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
                     <mat-label>E-mail</mat-label>
                     <mat-icon matSuffix class="secondary-text">email</mat-icon>
                     <input matInput formControlName="Email" placeholder="Email"
@@ -26,7 +31,8 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>Usuario</mat-label>
-                    <input matInput formControlName="UsuarioNombre" placeholder="UsuarioNombre">
+                    <input matInput formControlName="UsuarioNombre" placeholder="UsuarioNombre"
+                    required minlength="3" autocomplete="off">
                     <mat-icon matSuffix class="secondary-text">person</mat-icon>
                     <!--<mat-error *ngIf="registerForm.get('userName').hasError('required')">
                         {{ 'PAGES.REGISTER.VALIDATIONS.REQUIRED' | translate: {value: ('PAGES.REGISTER.USERNAME' | translate)} }}
@@ -39,7 +45,8 @@
                 </mat-form-field>                 
                 <mat-form-field appearance="outline">
                     <mat-label>{{'PAGES.REGISTER.PASSWORD' | translate}}</mat-label>
-                    <input matInput type="Password" formControlName="Password">
+                    <input matInput type="Password" formControlName="Password"
+                    required minlength="1" autocomplete="off">
                     <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
                     <mat-error>
                         {{ 'PAGES.REGISTER.VALIDATIONS.REQUIRED' | translate: {value: ('PAGES.REGISTER.PASSWORD' | translate)} }}
