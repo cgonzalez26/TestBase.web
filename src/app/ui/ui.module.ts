@@ -17,6 +17,7 @@ import { ImpuestosTsgModule } from "./impuestos_tsg/impuestos_tsg.module";
 //import { UsuariosDialogComponent } from './usuarios/usuarios-dialog/usuarios-dialog.component';
 //import { BaseModule } from "../base/base.module";
 import { BlockUIModule } from "ng-block-ui";
+import { DeudoresZonasModule } from "./reportes/deudores-zonas/deudores-zonas.module";
 //import { RegisterComponent } from './authentication/register/register.component';
 
 @NgModule({
@@ -38,6 +39,7 @@ import { BlockUIModule } from "ng-block-ui";
         ImpuestosAutModule,
         ImpuestosInmModule,
         ImpuestosTsgModule,
+        DeudoresZonasModule,
         BlockUIModule,
         //BaseModule,
     ],

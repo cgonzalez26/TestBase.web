@@ -79,6 +79,15 @@ export const navigation: FuseNavigation[] = [
                 icon: "location_city",
                 url: "ui/management/usuarios",
                 permission: "PAGES_SECURITY",
+            },
+            {
+                id: "report_deudores",
+                title: "Deudores por Zonas",
+                translate: "Deudores por Zonas",//"NAV.MANAGEMENT.ESTABLECIMIENTOS.TITLE",
+                type: "item",
+                icon: "location_city",
+                url: "ui/report/deudores-zonas",
+                permission: "PAGES_SECURITY",
             }
         ],
     },    

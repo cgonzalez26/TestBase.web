@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {BaseService} from '../base.service';
 import {map} from 'rxjs/operators';
 import {environment} from 'environments/environment';
+import { Deudores } from 'app/models/titulares/deudores';
 //import {TitularDto} from 'app/main/models/Titular/Dto/TitularDto';
 
 @Injectable({
@@ -180,5 +181,15 @@ public getGender() {
         return response;
     }));
 }*/
+public deudoresByZona(zonaid: string){
+    zonaid='1111';
+    const url:string = `${this.controller}/deudoresByZona/${zonaid}`;
+    console.log('entro service deudor ',url);
+    return this.HttpClient.get<Deudores>(url).pipe(
+        map((response) => {                
+            return response;
+        })
+    );
+}
 
 }
