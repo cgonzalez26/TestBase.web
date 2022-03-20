@@ -1,77 +1,77 @@
-import {Titular} from './../../models/titulares/titular';
+
 import {Injectable} from '@angular/core';
 import {Observable, BehaviorSubject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {BaseService} from '../base.service';
 import {map} from 'rxjs/operators';
 import {environment} from 'environments/environment';
-import { Deudores } from 'app/models/titulares/deudores';
+import { Deudores } from 'app/models/Titulares/deudores';
 //import {TitularDto} from 'app/main/models/Titular/Dto/TitularDto';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TitularesService extends BaseService<Titular>{
+export class DeudoresService extends BaseService<Deudores>{
   private readonly controller: string = 'Titulares';
 
-  private formBehaviorSubject: BehaviorSubject<Titular>;
-  public formObservable: Observable<Titular>;
+  private formBehaviorSubject: BehaviorSubject<Deudores>;
+  public formObservable: Observable<Deudores>;
 
   constructor(
       http: HttpClient,
       private readonly httpClient: HttpClient
   ) { 
     super(http, 'Forms');
-    this.formBehaviorSubject = new BehaviorSubject<Titular>(JSON.parse(localStorage.getItem(environment.localStorageEditItem)));
+    this.formBehaviorSubject = new BehaviorSubject<Deudores>(JSON.parse(localStorage.getItem(environment.localStorageEditItem)));
     this.formObservable = this.formBehaviorSubject.asObservable();
   }
 
-  public get form(): Titular {
+  public get form(): Deudores {
     return this.formBehaviorSubject.value;
 }
 
-public setForm(form: Titular): void {
+public setForm(form: Deudores): void {
     this.formBehaviorSubject.next(form);
 }
 
 // Fake Get Row
-loadData(): Observable<Titular[]> {
-    return this.httpClient.get<Titular[]>('https://api.myjson.com/bins/c5v2o').pipe(map((res: Titular[]) => {
+loadData(): Observable<Deudores[]> {
+    return this.httpClient.get<Deudores[]>('https://api.myjson.com/bins/c5v2o').pipe(map((res: Deudores[]) => {
         this.setEntities(res);
         return res;
     }));
 }
 
-public addForm(form: Titular) {   
+public addForm(form: Deudores) {   
     const url = 'Titulars/mobile/add';
-    return this.HttpClient.post<Titular>(url, form).pipe(map(response => {
+    return this.HttpClient.post<Deudores>(url, form).pipe(map(response => {
         return response;
     }));
 }
 
-public addWeb(form: Titular) { //TitularDto
+public addWeb(form: Deudores) { //TitularDto
     const url = `${this.controller}/web/add`;
-    return this.HttpClient.post<Titular>(url, form).pipe(map(response => {
+    return this.HttpClient.post<Deudores>(url, form).pipe(map(response => {
         return response;
     }));
 }
 
-public editForm(form: Titular) {
+public editForm(form: Deudores) {
     const url = `${this.controller}/edit`;
-    return this.HttpClient.put<Titular>(url, form).pipe(map(response => {
+    return this.HttpClient.put<Deudores>(url, form).pipe(map(response => {
         return response;
     }));
 }
 
-public editWeb(form: Titular) { //TitularDto
+public editWeb(form: Deudores) { //TitularDto
     const url = `${this.controller}/web/update`;
-    return this.HttpClient.put<Titular>(url, form).pipe(map(response => {
+    return this.HttpClient.put<Deudores>(url, form).pipe(map(response => {
         return response;
     }));
 }
 
 // Add new entity
-addEntity(entity: Titular) {
+addEntity(entity: Deudores) {
     this.entities.push(entity);
     this.setEntities(this.entities);
 }
@@ -83,9 +83,9 @@ public validateForm(formulario: string, prefijo: string, codformulario: string) 
     }));
 }
 
-public getAllWeb(): Observable<Titular[]> {
+public getAllWeb(): Observable<Deudores[]> {
     const url = `${this.controller}/web/all`;
-    return this.HttpClient.get<Titular[]>(url).pipe(map(response => {
+    return this.HttpClient.get<Deudores[]>(url).pipe(map(response => {
         return response;
     }));
 }
@@ -95,7 +95,7 @@ public getAllWeb(): Observable<Titular[]> {
 /**
  * Overridden base method
  */
-public getAll(): Observable<Titular[]> {
+public getAll(): Observable<Deudores[]> {
     return super.getAll((response) => {
         this.setEntities(response);
     });
@@ -104,15 +104,15 @@ public getAll(): Observable<Titular[]> {
 /**
  * Overridden base method
  */
-public getById(id: string): Observable<Titular> {
+public getById(id: string): Observable<Deudores> {
     return super.getById(id, (response) => {
         this.setEntity(response);
     });
 }
 
-public getByNroDocumento(sNroDocumento: string): Observable<Titular> {
+public getByNroDocumento(sNroDocumento: string): Observable<Deudores> {
     const url:string = `${this.controller}/getByNroDocumento/${sNroDocumento}`;
-    return this.HttpClient.get<Titular>(url).pipe(
+    return this.HttpClient.get<Deudores>(url).pipe(
         map((response) => {                
             return response;
         })
@@ -122,7 +122,7 @@ public getByNroDocumento(sNroDocumento: string): Observable<Titular> {
 /**
  * Overridden base method
  */
-public add(entity: Titular) {
+public add(entity: Deudores) {
     return super.add(entity, () => {
         this.entities.push(entity);
         this.setEntities(this.entities);
@@ -132,7 +132,7 @@ public add(entity: Titular) {
 /**
  * Overridden base method
  */
-public edit(id: string, entity: Titular) {
+public edit(id: string, entity: Deudores) {
     return super.edit(id, entity, () => {
         const index = this.entities.findIndex(e => e.Id == id);
         if (index >= 0) {
@@ -181,11 +181,11 @@ public getGender() {
         return response;
     }));
 }*/
-public deudoresByZona(zonaid: string): Observable<Titular[]>{
+public deudoresByZona(zonaid: string): Observable<Deudores[]>{
     //zonaid='1111';
     const url:string = `${this.controller}/deudoresByZona/${zonaid}`;
     console.log('entro service deudor ',url);
-    return this.HttpClient.get<Titular[]>(url).pipe(
+    return this.HttpClient.get<Deudores[]>(url).pipe(
         map((response) => {                
             this.setEntities(response);
             return response;

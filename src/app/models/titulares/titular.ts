@@ -8,6 +8,7 @@ export class Titular extends BaseModel{
     sNroDocumento: string;
     sDomicilio: string;
     sCelular: string;
+    ZonaId: string;
 
     constructor() {
         super()
@@ -18,5 +19,6 @@ export class Titular extends BaseModel{
         this.sNroDocumento = "";
         this.sDomicilio = "";
         this.sCelular = "";
+        this.ZonaId = "";
     }
 }

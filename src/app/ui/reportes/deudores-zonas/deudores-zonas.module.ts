@@ -33,6 +33,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { BlockUIModule } from 'ng-block-ui';
 import { TitularesService } from 'app/services/titulares/titulares.service';
+import { ZonaService } from 'app/services/zonas/zonas.service';
 
 const routes = [
   {
@@ -90,7 +91,8 @@ const routes = [
     DeudoresZonasDialogComponent,
   ],
   providers: [
-    TitularesService        
+    TitularesService,
+    ZonaService        
   ]
 })
 export class DeudoresZonasModule { }

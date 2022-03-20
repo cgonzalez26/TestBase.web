@@ -7,7 +7,7 @@ import { BaseTableOptions } from 'app/base/base-table/base-table-options';
 import { SweetAlert2Helper } from 'app/helpers/sweet-alert-2.helper';
 import { Deudores } from 'app/models/titulares/deudores';
 import { AuthenticationService } from 'app/services/authentication/authentication.service';
-import { TitularesService } from 'app/services/titulares/titulares.service';
+import { DeudoresService } from 'app/services/titulares/deudores.services';
 import { environment } from 'environments/environment';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { combineLatest, Observable } from 'rxjs';
@@ -26,10 +26,10 @@ export class DeudoresZonasComponent implements OnInit {
   userCode: string;
   dialogRef: any;
   baseTableOptions: BaseTableOptions;
-  ZonaId: string = "";
+  ZonaId: string = "ID_ALL";
 
   constructor( 
-    private _titularesService: TitularesService,
+    private _deudoresService: DeudoresService,
     private _sweetAlert2Helper: SweetAlert2Helper,
     private _matDialog: MatDialog,
     private _fuseConfigService: FuseConfigService,
@@ -55,7 +55,7 @@ export class DeudoresZonasComponent implements OnInit {
       this._fuseTranslationLoaderService.loadTranslations(english, spanish);
       
       this.userCode = JSON.parse(localStorage.getItem(environment.localStorageAuthDataItem)).UserCode;
-      this.forms$ = this._titularesService.getEntities();
+      this.forms$ = this._deudoresService.getEntities();
       this.forms$.subscribe(forms => {
           this.forms = forms;
       });
@@ -67,10 +67,10 @@ export class DeudoresZonasComponent implements OnInit {
 
     if (!this.forms || this.forms.length == 0) {
         combineLatest(
-            this._titularesService.deudoresByZona(this.ZonaId)
+            this._deudoresService.deudoresByZona(this.ZonaId)
         ).subscribe(
             ([_forms]) => {
-                this.forms$ = this._titularesService.getEntities();
+                this.forms$ = this._deudoresService.getEntities();
                 //console.log('datos imp aut',this.forms$); SI lo tiene                
                 this.dialogBlockUI.stop();
             }, error => {
