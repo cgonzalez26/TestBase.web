@@ -17,6 +17,11 @@
 
 <ngx-datatable #table id="tableForm" class="material h600" [rows]="filteredRows | async" [columnMode]="'force'"
     [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [messages]="messages" >
+    <ngx-datatable-column prop="Zona" name="Zona" [width]="15">
+        <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+            <span>{{row.Zona ? row.Zona : 'No disponible'}}</span>
+        </ng-template>
+    </ngx-datatable-column>
     <ngx-datatable-column prop="Apellido" name="Apellido" [width]="15">
         <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
             <span>{{row.sApellido ? row.sApellido : 'No disponible'}}</span>
@@ -29,12 +34,12 @@
     </ngx-datatable-column>   
     <ngx-datatable-column prop="Direccion" name="Direccion" [width]="15">
         <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
-            <span>{{row.sDireccion ? row.sDireccion : '-'}}</span>
+            <span>{{row.sDomicilio ? row.sDomicilio : '-'}}</span>
         </ng-template>
     </ngx-datatable-column> 
     <ngx-datatable-column prop="Monto a Pagar" name="Monto a Pagar" [width]="15">
         <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
-            <span>{{row.sTelefono ? row.sTelefono : '-'}}</span>
+            <span>{{row.nSaldo ? row.nSaldo : '0'}}</span>
         </ng-template>
     </ngx-datatable-column>
   

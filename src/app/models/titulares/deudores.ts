@@ -2,14 +2,13 @@ import { BaseModel } from '../base.model';
 import { Zona } from '../zonas/zona';
 
 export class Deudores extends BaseModel{
-    sNroDocumento: string;
-    sNombre: string;
-    sApellido: string;    
-    sDomicilio: string;
-    sTelefono: string;        
-    sCelular: string;
     ZonaId: string;
     Zona: Zona;
+    TitularId: string;
+    sNroDocumento: string;
+    sApellido: string;
+    sNombre: string;        
+    sDomicilio: string;
 
     constructor() {
         super()
@@ -17,8 +16,6 @@ export class Deudores extends BaseModel{
         this.sNombre = "";
         this.sApellido = "";        
         this.sDomicilio = "";
-        this.sTelefono = "";                
-        this.sCelular = "";
         this.ZonaId = "";
         this.Zona = null;
     }
