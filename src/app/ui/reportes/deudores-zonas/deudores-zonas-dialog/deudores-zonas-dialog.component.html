@@ -1,1 +1,41 @@
-<p>deudores-zonas-dialog works!</p>
+<div class="dialog-content-wrapper" *blockUI="'form-dialog-deudores'">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <h2 mat-dialog-title class="title dialog-title">
+                {{title | translate}}
+            </h2>
+            <button mat-icon-button (click)="cancel()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <ngx-datatable #table id="tableForm" class="material h600" [rows]="filteredRows | async" [columnMode]="'force'"
+        [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [messages]="messages" >
+        <ngx-datatable-column prop="Tipo Impuesto" name="Tipo Impuesto" [width]="15">
+            <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+                <span>{{row.TipoImpuesto ? row.TipoImpuesto : 'No disponible'}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="Inmueble" name="Inmueble" [width]="15">
+            <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+                <span>{{row.Inmueble ? row.Inmueble : 'No disponible'}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="Periodo" name="Periodo" [width]="15">
+            <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+                <span>{{row.Periodo ? row.Periodo : 'No disponible'}}</span>
+            </ng-template>
+        </ngx-datatable-column>   
+        <ngx-datatable-column prop="Fecha Pago" name="Fecha Pago" [width]="15">
+            <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+                <span>{{row.FechaPago ? row.FechaPago : '-'}}</span>
+            </ng-template>
+        </ngx-datatable-column> 
+        <ngx-datatable-column prop="Monto a Pagar" name="Monto a Pagar" [width]="15">
+            <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+                <span>{{row.nSaldo ? row.nSaldo : '0'}}</span>
+            </ng-template>
+        </ngx-datatable-column>  
+    </ngx-datatable>
+</div>
