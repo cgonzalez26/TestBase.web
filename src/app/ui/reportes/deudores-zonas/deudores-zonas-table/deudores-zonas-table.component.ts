@@ -27,7 +27,7 @@ import * as _ from 'lodash';
 export class DeudoresZonasTableComponent implements OnInit {
   @ViewChild(DatatableComponent, {static: false}) table: DatatableComponent;
   @Input() forms$: Observable<Deudores[]>;
-  @Output() onView: EventEmitter<void>;
+  @Output() onView: EventEmitter<Deudores>;
   searchInput: FormControl;
   ZonaId: FormControl;
   zonas: Zona[];
@@ -52,7 +52,7 @@ export class DeudoresZonasTableComponent implements OnInit {
     private _sweetAlert2Helper: SweetAlert2Helper,
     ) { 
       this._unsubscribeAll = new Subject();
-        this.onView = new EventEmitter<void>();        
+        this.onView = new EventEmitter<Deudores>();        
         this.messages.emptyMessage = this._translationService.noDataAvailable;
         this.zonas = [];
         this.searchInput = new FormControl('');
@@ -119,7 +119,7 @@ export class DeudoresZonasTableComponent implements OnInit {
   search(value: string) {
     value = value.toUpperCase();
 
-    if(this.forms$){
+    if(this.forms$ && value!= ''){
         this.filteredRows = this.forms$.pipe(map((response: any) => {
             return response.filter(c => (c && c.sApellido.toUpperCase().includes(value) 
               || (c.sNombre.toUpperCase().includes(value))
@@ -130,7 +130,6 @@ export class DeudoresZonasTableComponent implements OnInit {
   }
 
   view(row: Deudores):void{
-    return null;
+    this.onView.emit(row);
   }
-
 }

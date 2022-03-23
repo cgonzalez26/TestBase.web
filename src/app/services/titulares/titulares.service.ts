@@ -6,6 +6,7 @@ import {BaseService} from '../base.service';
 import {map} from 'rxjs/operators';
 import {environment} from 'environments/environment';
 import { Deudores } from 'app/models/titulares/deudores';
+import { Impuestos } from 'app/models/impuestos/impuestos';
 //import {TitularDto} from 'app/main/models/Titular/Dto/TitularDto';
 
 @Injectable({
@@ -188,6 +189,17 @@ public deudoresByZona(zonaid: string): Observable<Titular[]>{
     return this.HttpClient.get<Titular[]>(url).pipe(
         map((response) => {                
             this.setEntities(response);
+            return response;
+        })
+    );
+}
+
+public getDeudasByTitularId(titularid: string): Observable<Impuestos[]>{
+    const url:string = `${this.controller}/getDeudasByTitularId/${titularid}`;
+    console.log('url get deudas ',url);
+    return this.HttpClient.get<Impuestos[]>(url).pipe(
+        map((response) => {                
+            //this.setEntities(response);
             return response;
         })
     );

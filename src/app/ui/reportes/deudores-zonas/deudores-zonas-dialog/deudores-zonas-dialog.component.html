@@ -10,32 +10,48 @@
         </mat-toolbar-row>
     </mat-toolbar>
 
-    <ngx-datatable #table id="tableForm" class="material h600" [rows]="filteredRows | async" [columnMode]="'force'"
-        [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [messages]="messages" >
-        <ngx-datatable-column prop="Tipo Impuesto" name="Tipo Impuesto" [width]="15">
+    <ngx-datatable #table id="tableForm" class="material" [rows]="forms" [columnMode]="'force'"
+        [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="15" [messages]="messages" >
+        <ngx-datatable-column prop="Tipo Impuesto" name="Tipo Impuesto" [width]="350">
             <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
                 <span>{{row.TipoImpuesto ? row.TipoImpuesto : 'No disponible'}}</span>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column prop="Inmueble" name="Inmueble" [width]="15">
+        <ngx-datatable-column prop="Propiedad" name="Propiedad" [width]="250">
             <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
-                <span>{{row.Inmueble ? row.Inmueble : 'No disponible'}}</span>
+                <span>{{row.Propiedad ? row.Propiedad : 'No disponible'}}</span>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column prop="Periodo" name="Periodo" [width]="15">
+        <ngx-datatable-column prop="Periodo" name="Periodo" [width]="250">
             <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
-                <span>{{row.Periodo ? row.Periodo : 'No disponible'}}</span>
+                <span>{{row.iPeriodo ? row.iAnio+' - '+row.iPeriodo : 'No disponible'}}</span>
             </ng-template>
         </ngx-datatable-column>   
-        <ngx-datatable-column prop="Fecha Pago" name="Fecha Pago" [width]="15">
-            <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
-                <span>{{row.FechaPago ? row.FechaPago : '-'}}</span>
-            </ng-template>
-        </ngx-datatable-column> 
-        <ngx-datatable-column prop="Monto a Pagar" name="Monto a Pagar" [width]="15">
+        <ngx-datatable-column prop="Monto a Pagar" name="Monto a Pagar" [width]="250">
             <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
                 <span>{{row.nSaldo ? row.nSaldo : '0'}}</span>
             </ng-template>
         </ngx-datatable-column>  
+        <!--<ngx-datatable-footer>
+            <ng-template
+            ngx-datatable-footer-template
+            let-rowCount="rowCount"
+            let-pageSize="pageSize"
+            let-selectedCount="selectedCount",
+            let-curPage="curPage"
+            let-offset="offset">
+            <div style="padding: 5px 10px">
+            <div>
+                <strong>Total</strong>:
+            </div>
+            </div>
+        </ng-template>
+        </ngx-datatable-footer>-->
     </ngx-datatable>
+    
+    <div mat-dialog-actions class="m-0 py-12 px-24" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button color="warn" class="ml-8" (click)="cancel()" aria-label="CANCEL">
+            Cancelar
+        </button>
+    </div>
 </div>
