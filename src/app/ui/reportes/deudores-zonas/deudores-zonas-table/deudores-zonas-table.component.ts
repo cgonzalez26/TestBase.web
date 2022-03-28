@@ -44,6 +44,7 @@ export class DeudoresZonasTableComponent implements OnInit {
   DepartamentoId: string = '66040'; //oran
   apiResponse: any = [];
   selected: string;
+  searchText: string = "";
 
   constructor(private _translationService: TranslationService,
     private _ImpuestosTsgService: TitularesService,
@@ -136,7 +137,16 @@ export class DeudoresZonasTableComponent implements OnInit {
   }
 
   buscar():void{
-    return null;
+    this.searchText = this.searchInput.value;
+    this.ZonaId = this.ZonaId.value;
+    if(this.forms$ && this.searchText != ''){
+        this.filteredRows = this.forms$.pipe(map((response: any) => {
+            return response.filter(c => ((c && c.sApellido.toUpperCase().includes(this.searchText) 
+              || (c.sNombre.toUpperCase().includes(this.searchText)) && (c.ZonaId.includes(this.ZonaId)))
+            //|| (c.UserName && c.UserName.toUpperCase().includes(value)) || (c.DocumentNumber && c.DocumentNumber.toUpperCase().includes(value))
+            ));
+        }));
+    }
   }
 
   downloadPDF(): void{

@@ -11,7 +11,7 @@
     </mat-toolbar>
 
     <ngx-datatable #table id="tableFormDialog" class="material" [rows]="forms" [columnMode]="'force'"
-        [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="15" [messages]="messages" >
+        [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="15" [messages]="messages" style ="width:100%" >
         <ngx-datatable-column prop="Tipo Impuesto" name="Tipo Impuesto" [width]="300">
             <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
                 <span>{{row.TipoImpuesto ? row.TipoImpuesto : 'No disponible'}}</span>
