@@ -1,16 +1,32 @@
-<mat-form-field class="w-30-p">
-    <input matInput [formControl]="searchInput" placeholder="{{'COMMON.SEARCH' | translate}}...">
-</mat-form-field>
-<div></div>
-<mat-form-field class="w-20-p">
-    <mat-select [formControl]="ZonaId" (selectionChange)="onChange($event)">
-        <mat-option [value]="'ID_ALL'" selected> Todos </mat-option>
-        <mat-option *ngFor="let zona of zonas" [value]="zona.Id">
-            {{ zona.Nombre }}
-        </mat-option>
-    </mat-select>
-</mat-form-field>
-<!--<button mat-raised-button color="accent" class="ml-24" (click)="add()">
+<form class="example-form">
+<table class="example-full-width" cellspacing="0">
+    <tr>
+        <td>
+            <mat-form-field class="example-full-width">
+                <mat-label>Zonas:</mat-label>
+                <mat-select [formControl]="ZonaId" [(ngModel)]="selected">
+                    <mat-option [value]="'ID_ALL'"> Todas </mat-option>
+                    <mat-option *ngFor="let zona of zonas" [value]="zona.Id">
+                        {{ zona.Nombre }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>       
+         </td>
+        <td>
+            <mat-form-field class="example-full-width">
+                <mat-label>Buscar por Apellido/Nombres:</mat-label>
+                <input matInput [formControl]="searchInput" placeholder="{{'COMMON.SEARCH' | translate}}...">
+            </mat-form-field>
+        </td>
+    </tr>
+    <tr><td>
+        <button mat-raised-button color="accent" class="" (click)="buscar()">Buscar</button>
+    </td></tr>
+ </table>   
+</form>
+<p></p>
+<!--class w-30-p
+    <button mat-raised-button color="accent" class="ml-24" (click)="add()">
     Agregar Establecimiento
 </button>
 (activate)="activate($event)"-->
@@ -67,5 +83,7 @@
     </ngx-datatable-column>
 </ngx-datatable>
 <div>&nbsp;</div>
-
+<div class="col-md-4 text-right">
+    <button mat-raised-button color="accent" (click)="downloadPDF()">Exportar a Pdf</button>&nbsp;
+</div>
 

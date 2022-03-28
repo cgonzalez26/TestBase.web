@@ -12,7 +12,7 @@
 
     <ngx-datatable #table id="tableForm" class="material" [rows]="forms" [columnMode]="'force'"
         [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="15" [messages]="messages" >
-        <ngx-datatable-column prop="Tipo Impuesto" name="Tipo Impuesto" [width]="350">
+        <ngx-datatable-column prop="Tipo Impuesto" name="Tipo Impuesto" [width]="300">
             <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
                 <span>{{row.TipoImpuesto ? row.TipoImpuesto : 'No disponible'}}</span>
             </ng-template>
@@ -27,7 +27,7 @@
                 <span>{{row.iPeriodo ? row.iAnio+' - '+row.iPeriodo : 'No disponible'}}</span>
             </ng-template>
         </ngx-datatable-column>   
-        <ngx-datatable-column prop="Monto a Pagar" name="Monto a Pagar" [width]="250">
+        <ngx-datatable-column prop="Monto a Pagar" name="Monto a Pagar" [width]="200">
             <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
                 <span>{{row.nSaldo ? row.nSaldo : '0'}}</span>
             </ng-template>
@@ -50,6 +50,9 @@
     </ngx-datatable>
     
     <div mat-dialog-actions class="m-0 py-12 px-24" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button color="accent" class="ml-8" (click)="printDeudas()">
+            Imprimir Pdf
+        </button>
         <button mat-raised-button color="warn" class="ml-8" (click)="cancel()" aria-label="CANCEL">
             Cancelar
         </button>

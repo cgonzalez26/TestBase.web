@@ -61,5 +61,8 @@ export class DeudoresZonasDialogComponent implements OnInit {
     this._matDialogRef.close();      
   }
 
+  printDeudas(){
+    return null;
+  }
 
 }

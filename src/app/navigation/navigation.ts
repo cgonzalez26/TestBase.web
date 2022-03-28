@@ -76,7 +76,7 @@ export const navigation: FuseNavigation[] = [
                 title: "Usuarios",
                 translate: "Usuarios",//"NAV.MANAGEMENT.ESTABLECIMIENTOS.TITLE",
                 type: "item",
-                icon: "location_city",
+                icon: "user_group",
                 url: "ui/management/usuarios",
                 permission: "PAGES_SECURITY",
             },
@@ -85,7 +85,7 @@ export const navigation: FuseNavigation[] = [
                 title: "Deudores por Zonas",
                 translate: "Deudores por Zonas",//"NAV.MANAGEMENT.ESTABLECIMIENTOS.TITLE",
                 type: "item",
-                icon: "location_city",
+                icon: "user_group",
                 url: "ui/report/deudores-zonas",
                 permission: "PAGES_SECURITY",
             }

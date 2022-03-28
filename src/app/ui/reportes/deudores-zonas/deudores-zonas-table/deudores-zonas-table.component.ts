@@ -43,6 +43,7 @@ export class DeudoresZonasTableComponent implements OnInit {
   isContribuyente: boolean;
   DepartamentoId: string = '66040'; //oran
   apiResponse: any = [];
+  selected: string;
 
   constructor(private _translationService: TranslationService,
     private _ImpuestosTsgService: TitularesService,
@@ -57,7 +58,7 @@ export class DeudoresZonasTableComponent implements OnInit {
         this.zonas = [];
         this.searchInput = new FormControl('');
         this.ZonaId = new FormControl('');
-        this.searchInput.valueChanges
+        /*this.searchInput.valueChanges
                 .pipe(
                     takeUntil(this._unsubscribeAll),
                     debounceTime(500),
@@ -65,7 +66,7 @@ export class DeudoresZonasTableComponent implements OnInit {
                 )
                 .subscribe(value => {
                     this.search(value);
-                });
+                });*/
     }
 
   ngOnInit(): void {
@@ -73,6 +74,7 @@ export class DeudoresZonasTableComponent implements OnInit {
     this.filteredRows = this.forms$;
     const currentUser = this._authenticationService.usuario;    
     this.isContribuyente = (currentUser.Rol.Id == 'COD_CONTRIBUYENTE')? true: false;    
+    this.selected = "ID_ALL";
     this.getData();
   }
 
@@ -131,5 +133,13 @@ export class DeudoresZonasTableComponent implements OnInit {
 
   view(row: Deudores):void{
     this.onView.emit(row);
+  }
+
+  buscar():void{
+    return null;
+  }
+
+  downloadPDF(): void{
+    return null;
   }
 }
