@@ -136,7 +136,19 @@ export class DeudoresZonasTableComponent implements OnInit {
   }
 
   buscar():void{
-    return null;
+    let textoBuscado = this.searchInput.value.toUpperCase();
+    let zonaIdSeleccionado = this.ZonaId.value;
+    console.log('buscar por ',textoBuscado,'--',zonaIdSeleccionado);
+    if(this.forms$ && (textoBuscado!= '' || zonaIdSeleccionado!= '')){
+        this.filteredRows = this.forms$.pipe(map((response: any) => {
+            return response.filter(c => (c && c.sApellido.toUpperCase().includes(textoBuscado) 
+              || (c.sNombre.toUpperCase().includes(textoBuscado)) 
+              //|| (c.ZonaId.includes(zonaIdSeleccionado)
+              //)
+            //|| (c.UserName && c.UserName.toUpperCase().includes(value)) || (c.DocumentNumber && c.DocumentNumber.toUpperCase().includes(value))
+            ));
+        }));
+    }
   }
 
   downloadPDF(): void{
