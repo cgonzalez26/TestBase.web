@@ -44,6 +44,7 @@ export class DeudoresZonasTableComponent implements OnInit {
   DepartamentoId: string = '66040'; //oran
   apiResponse: any = [];
   selected: string;
+  searchText: string = "";
 
   constructor(private _translationService: TranslationService,
     private _ImpuestosTsgService: TitularesService,
@@ -136,15 +137,12 @@ export class DeudoresZonasTableComponent implements OnInit {
   }
 
   buscar():void{
-    let textoBuscado = this.searchInput.value.toUpperCase();
-    let zonaIdSeleccionado = this.ZonaId.value;
-    console.log('buscar por ',textoBuscado,'--',zonaIdSeleccionado);
-    if(this.forms$ && (textoBuscado!= '' || zonaIdSeleccionado!= '')){
+    this.searchText = this.searchInput.value;
+    this.ZonaId = this.ZonaId.value;
+    if(this.forms$ && this.searchText != ''){
         this.filteredRows = this.forms$.pipe(map((response: any) => {
-            return response.filter(c => (c && c.sApellido.toUpperCase().includes(textoBuscado) 
-              || (c.sNombre.toUpperCase().includes(textoBuscado)) 
-              //|| (c.ZonaId.includes(zonaIdSeleccionado)
-              //)
+            return response.filter(c => ((c && c.sApellido.toUpperCase().includes(this.searchText) 
+              || (c.sNombre.toUpperCase().includes(this.searchText)) && (c.ZonaId.includes(this.ZonaId)))
             //|| (c.UserName && c.UserName.toUpperCase().includes(value)) || (c.DocumentNumber && c.DocumentNumber.toUpperCase().includes(value))
             ));
         }));
@@ -152,6 +150,26 @@ export class DeudoresZonasTableComponent implements OnInit {
   }
 
   downloadPDF(): void{
-    return null;
+    const DATA = document.getElementById('tableForm');
+    const doc = new jsPDF('p', 'pt', 'a4');
+    const options = {
+      background: 'white',
+      scale: 3
+    };
+    html2canvas(DATA, options).then((canvas) => {
+
+      const img = canvas.toDataURL('image/PNG');
+
+      // Add image Canvas to PDF
+      const bufferX = 15;
+      const bufferY = 15;
+      const imgProps = (doc as any).getImageProperties(img);
+      const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
+      return doc;
+    }).then((docResult) => {
+      docResult.save(`${new Date().toISOString()}_deudores.pdf`);
+    });
   }
 }
