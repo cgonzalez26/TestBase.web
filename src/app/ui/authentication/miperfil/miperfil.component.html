@@ -1,0 +1,127 @@
+<div fxLayout="row" class="h-100-p w-100-p">
+    <div fxLayout="column" class="h-100-p w-100-p pl-24 pr-24 pb-12">
+        <div id="titleMiperfil" fxFlex="64px" fxLayoutAlign="space-between center">
+            <h2>Mi Perfil</h2>
+        </div>
+        <div fxFlex fusePerfectScrollbar>
+        
+
+        <div id="miperfil" fxLayout="column">            
+
+            <div id="miperfil-content-wrapper" fxLayout="column" fxLayoutAlign="center center">
+
+                <div  class="p-24 pb-0 m-0" fusePerfectScrollbar>
+                    <form [formGroup]="miperfilForm" autocomplete="off">
+                        <div fxLayout="row">
+                            <div fxFlex="50" class="mr-4">
+                                <mat-form-field class="w-100-p">
+                                    <input matInput name="Nombres" formControlName="Nombres" placeholder="Nombres"
+                                        required minlength="3" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="50" class="ml-4">
+                                <mat-form-field class="w-100-p">
+                                    <input matInput name="Apellidos" formControlName="Apellidos" placeholder="Apellidos"
+                                        required minlength="3" maxlength="6" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxLayout="row">
+                            <div fxFlex="50" class="mr-4">
+                                <mat-form-field class="w-100-p">
+                                    <input matInput name="sNroDocumento" formControlName="sNroDocumento" placeholder="Número de Documento"
+                                        minlength="3" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="50" class="ml-4">
+                                <mat-form-field class="w-100-p">
+                                    <input matInput name="Telefono" formControlName="Telefono" placeholder="Teléfono"
+                                        minlength="3" maxlength="15" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxLayout="row">
+                            <div fxFlex="50" class="mr-4">
+                                <mat-form-field class="w-100-p">
+                                    <input matInput name="Email" formControlName="Email" placeholder="E-mail"
+                                        minlength="3" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="50" class="ml-4">
+                                <mat-form-field class="w-100-p">
+                                    <!-- <input matInput name="BirthDate" formControlName="BirthDate" placeholder="Fecha de Nacimiento"
+                                        required minlength="3" maxlength="6" autocomplete="off"> -->
+            
+                                        <input #BirthDate matInput [matDatepicker]="picker1" placeholder="Fecha de Nacimiento"
+                                            formControlName="FechaNacimiento" (focus)="picker1.open();" autocomplete="off">
+                                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker1></mat-datepicker>
+            
+                                </mat-form-field>
+                            </div>
+                        </div>            
+                        <div fxLayout="row">
+                            <div fxFlex="50" class="mr-4">
+                                <mat-form-field class="w-100-p">
+                                    <input matInput name="UsuarioNombre" formControlName="UsuarioNombre" placeholder="Usuario"
+                                        required minlength="3" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="50" class="ml-4">
+                                <mat-form-field class="w-95-p">
+                                    <input matInput name="Rol" formControlName="Rol" placeholder="Rol"
+                                        required minlength="3" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                        </div>           
+                        <div fxLayout="row">
+                            <div fxFlex="50" class="mr-4">
+                                <mat-form-field class="w-100-p">                        
+                                    <input matInput name="Password" formControlName="Password"                         
+                                    placeholder="Contraseña"
+                                    [type]="hidePassword ? 'password' : 'text'"
+                                    (blur)="onBlurPassword()"
+                                    required>
+                                    <mat-icon matSuffix [ngClass]="hidePassword ? 'secure' : 'insecure'"
+                                    (click)="hidePassword = !hidePassword">
+                              {{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    <mat-error>Campo requerido</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="50" class="mr-4">
+                                <mat-form-field class="w-100-p">
+                                    <input matInput name="ConfirmPassword" formControlName="ConfirmPassword" 
+                                    placeholder="Confirmar Contraseña"
+                                    [type]="hidePassword ? 'password' : 'text'"
+                                    (blur)="onBlurPassword()"
+                                    required>
+                                    <mat-icon matSuffix [ngClass]="hidePassword ? 'secure' : 'insecure'"
+                                    (click)="hidePassword = !hidePassword">
+                              {{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    <mat-error>Campo requerido</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>    
+                <!--<a mat-button class="powered-by p-0">Powered by: Agencia de Información de Políticas Públicas - Coordinación de Enlace y Relaciones
+                    Políticas</a>-->
+                </div>
+            </div>
+
+            <div mat-dialog-actions class="m-0 py-12 px-24" fxLayout="row" fxLayoutAlign="end center">
+                <button mat-raised-button color="accent" (click)="save()" [disabled]="miperfilForm.invalid"
+                    aria-label="action == 'edit' ? 'SAVE CHANGES' : 'SAVE'">
+                    Guardar
+                </button>
+        
+                <!--<button mat-raised-button color="warn" class="ml-8" (click)="cancel()" aria-label="CANCEL">
+                    Cancelar
+                </button>-->
+            </div>
+    
+        
+        
+        </div>    
+    </div>
+</div>
+</div>

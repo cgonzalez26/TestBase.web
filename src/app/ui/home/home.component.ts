@@ -27,9 +27,9 @@ export class HomeComponent implements OnInit{
      @BlockUI('bw-blockui-impuestos-inm') impuestosInmBlockUI: NgBlockUI;
      @BlockUI('bw-blockui-impuestos-tsg') impuestosTsgBlockUI: NgBlockUI;
 
-    impuestos_aut_count: number;
-    impuestos_inm_count: number;
-    impuestos_tsg_count: number;
+    impuestos_aut_count: number = 0;
+    impuestos_inm_count: number = 0;
+    impuestos_tsg_count: number = 0;
     sNroDocumento: string;
     isContribuyente: boolean;
     constructor(
@@ -69,31 +69,32 @@ export class HomeComponent implements OnInit{
         const currentUser = this._authenticationService.usuario;        
         this.isContribuyente = (currentUser.Rol.Id == 'COD_CONTRIBUYENTE')? true: false;
         this.sNroDocumento = (currentUser.Rol.Id == 'COD_CONTRIBUYENTE')? currentUser.sNroDocumento: 'admin';
-      
-        this.impuestosAutBlockUI.start();
-        this._impuestos_autService.getCountDeudaByNroDocumento(this.sNroDocumento).subscribe(response => {
-            this.impuestos_aut_count = response;
-            this.impuestosAutBlockUI.stop();
-        }, error => {
-            this.impuestosAutBlockUI.stop();
-        });
+        if(this.sNroDocumento && this.sNroDocumento!='' && this.sNroDocumento!= null)
+        {
+            this.impuestosAutBlockUI.start();        
+            this._impuestos_autService.getCountDeudaByNroDocumento(this.sNroDocumento).subscribe(response => {
+                this.impuestos_aut_count = response;
+                this.impuestosAutBlockUI.stop();
+            }, error => {
+                this.impuestosAutBlockUI.stop();
+            });
 
-        this.impuestosInmBlockUI.start();
-        this._impuestos_inmService.getCountDeudaByNroDocumento(this.sNroDocumento).subscribe(response => {
-            this.impuestos_inm_count = response;
-            this.impuestosInmBlockUI.stop();
-        }, error => {
-            this.impuestosInmBlockUI.stop();
-        });
+            this.impuestosInmBlockUI.start();
+            this._impuestos_inmService.getCountDeudaByNroDocumento(this.sNroDocumento).subscribe(response => {
+                this.impuestos_inm_count = response;
+                this.impuestosInmBlockUI.stop();
+            }, error => {
+                this.impuestosInmBlockUI.stop();
+            });
 
-        this.impuestosTsgBlockUI.start();
-        this._impuestos_tsgService.getCountDeudaByNroDocumento(this.sNroDocumento).subscribe(response => {
-            this.impuestos_tsg_count = response;
-            this.impuestosTsgBlockUI.stop();
-        }, error => {
-            this.impuestosTsgBlockUI.stop();
-        });
-
+            this.impuestosTsgBlockUI.start();
+            this._impuestos_tsgService.getCountDeudaByNroDocumento(this.sNroDocumento).subscribe(response => {
+                this.impuestos_tsg_count = response;
+                this.impuestosTsgBlockUI.stop();
+            }, error => {
+                this.impuestosTsgBlockUI.stop();
+            });
+        }    
     }
 
     goToImpuestosAut(){        

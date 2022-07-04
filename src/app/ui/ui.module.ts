@@ -19,12 +19,14 @@ import { ImpuestosTsgModule } from "./impuestos_tsg/impuestos_tsg.module";
 import { BlockUIModule } from "ng-block-ui";
 import { DeudoresZonasModule } from "./reportes/deudores-zonas/deudores-zonas.module";
 //import { RegisterComponent } from './authentication/register/register.component';
+import { MiperfilModule } from "./authentication/miperfil/miperfil.module";
 
 @NgModule({
     imports: [
         // Authentication
         LoginModule,
         RegisterModule,
+        MiperfilModule,
         
         // Errors
         Error400Module,

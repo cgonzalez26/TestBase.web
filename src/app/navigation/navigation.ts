@@ -69,8 +69,17 @@ export const navigation: FuseNavigation[] = [
         title: "Management",
         translate: "NAV.MANAGEMENT.TITLE",
         type: "group",
-        permission: "PAGES_SECURITY",
+        permission: "PAGES_HOME",//"PAGES_SECURITY",
         children: [
+            {
+                id: "perfil",
+                title: "Mi Perfil",
+                translate: "Mi Perfil",//"NAV.MANAGEMENT.ESTABLECIMIENTOS.TITLE",
+                type: "item",
+                icon: "user",
+                url: "ui/auth/miperfil",
+                permission: "PAGES_HOME",
+            },
             {
                 id: "usuarios",
                 title: "Usuarios",
