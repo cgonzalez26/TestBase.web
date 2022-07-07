@@ -52,16 +52,7 @@ export const navigation: FuseNavigation[] = [
                 icon: "location_city",
                 url: "ui/management/impuestos_tsg",
                 permission: "PAGES_MANAGEMENT_IMPUESTOS_TSG",
-            },
-            {
-                id: "users",
-                title: "Usuarios",
-                translate: "NAV.MANAGEMENT.USERS.TITLE",
-                type: "item",
-                icon: "people",
-                url: "ui/management/usuarios",
-                permission: "PAGES_MANAGEMENT_USERS",
-            },
+            }
         ],
     },
     {
@@ -69,16 +60,16 @@ export const navigation: FuseNavigation[] = [
         title: "Management",
         translate: "NAV.MANAGEMENT.TITLE",
         type: "group",
-        permission: "PAGES_HOME",//"PAGES_SECURITY",
+        permission: "PAGES_MANAGMENT",//"PAGES_SECURITY",
         children: [
             {
                 id: "perfil",
                 title: "Mi Perfil",
                 translate: "Mi Perfil",//"NAV.MANAGEMENT.ESTABLECIMIENTOS.TITLE",
                 type: "item",
-                icon: "user",
+                icon: "perm_identity",
                 url: "ui/auth/miperfil",
-                permission: "PAGES_HOME",
+                permission: "PAGE_MI_PERFIL",
             },
             {
                 id: "usuarios",
@@ -87,7 +78,7 @@ export const navigation: FuseNavigation[] = [
                 type: "item",
                 icon: "user_group",
                 url: "ui/management/usuarios",
-                permission: "PAGES_SECURITY",
+                permission: "PAGE_MANAGMENT_USUARIOS",
             },
             {
                 id: "report_deudores",
@@ -96,7 +87,7 @@ export const navigation: FuseNavigation[] = [
                 type: "item",
                 icon: "user_group",
                 url: "ui/report/deudores-zonas",
-                permission: "PAGES_SECURITY",
+                permission: "PAGE_REPORT_DEUDORES_ZONAS",
             }
         ],
     },    

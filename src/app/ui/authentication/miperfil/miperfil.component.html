@@ -3,14 +3,11 @@
         <div id="titleMiperfil" fxFlex="64px" fxLayoutAlign="space-between center">
             <h2>Mi Perfil</h2>
         </div>
-        <div fxFlex fusePerfectScrollbar>
-        
-
         <div id="miperfil" fxLayout="column">            
 
             <div id="miperfil-content-wrapper" fxLayout="column" fxLayoutAlign="center center">
 
-                <div  class="p-24 pb-0 m-0" fusePerfectScrollbar>
+                <div  class="w-100-p p-24 pb-0 m-0" fusePerfectScrollbar>
                     <form [formGroup]="miperfilForm" autocomplete="off">
                         <div fxLayout="row">
                             <div fxFlex="50" class="mr-4">
@@ -52,11 +49,11 @@
                                     <!-- <input matInput name="BirthDate" formControlName="BirthDate" placeholder="Fecha de Nacimiento"
                                         required minlength="3" maxlength="6" autocomplete="off"> -->
             
-                                        <input #BirthDate matInput [matDatepicker]="picker1" placeholder="Fecha de Nacimiento"
-                                            formControlName="FechaNacimiento" (focus)="picker1.open();" autocomplete="off">
-                                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker1></mat-datepicker>
-            
+                                    <input #BirthDate matInput [matDatepicker]="picker1" placeholder="Fecha de Nacimiento"
+                                        name="FechaNacimiento" formControlName="FechaNacimiento" (focus)="picker1.open();" autocomplete="off">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+        
                                 </mat-form-field>
                             </div>
                         </div>            
@@ -69,8 +66,8 @@
                             </div>
                             <div fxFlex="50" class="ml-4">
                                 <mat-form-field class="w-95-p">
-                                    <input matInput name="Rol" formControlName="Rol" placeholder="Rol"
-                                        required minlength="3" autocomplete="off">
+                                    <input matInput name="Rol" formControlName="Rol" placeholder="Tipo de Usuario"
+                                        minlength="3" autocomplete="off" readonly>
                                 </mat-form-field>
                             </div>
                         </div>           
@@ -112,16 +109,11 @@
                 <button mat-raised-button color="accent" (click)="save()" [disabled]="miperfilForm.invalid"
                     aria-label="action == 'edit' ? 'SAVE CHANGES' : 'SAVE'">
                     Guardar
-                </button>
-        
-                <!--<button mat-raised-button color="warn" class="ml-8" (click)="cancel()" aria-label="CANCEL">
+                </button>        
+                <button mat-raised-button color="warn" class="ml-8" (click)="cancel()" aria-label="CANCEL">
                     Cancelar
-                </button>-->
+                </button>
             </div>
-    
-        
-        
-        </div>    
     </div>
 </div>
 </div>

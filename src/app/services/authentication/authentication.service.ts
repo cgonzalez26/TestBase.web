@@ -93,6 +93,8 @@ export class AuthenticationService {
                     rol.Nombre = (response["RolId"] == 'COD_ADMIN')?'Super Admin':'Contribuyente';
 
                     const user = new Usuario();
+                    user.UsuarioNombre = response["UsuarioNombre"];
+                    user.Id = response["Id"];
                     user.Nombres = response["Nombres"];
                     user.Apellidos = response["Apellidos"];
                     user.Email = response["Email"];
