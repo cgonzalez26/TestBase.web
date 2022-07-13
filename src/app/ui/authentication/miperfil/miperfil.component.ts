@@ -176,13 +176,16 @@ export class MiperfilComponent implements OnInit {
     this.form.Password = rawValue.Password;
   } 
 
+  
   save(): void{
     this.dialogBlockUI.start('Guardando...');
-
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  
     this.setRawValues();
-    this._usuariosService.editWeb(this.form).subscribe((result: any) => {
+    this._usuariosService.editWeb(this.form).subscribe(async (result: any) => {
         this.dialogBlockUI.stop();
         this._sweetAlert2Helper.success('Aviso', 'Usuario editado correctamente', null, true);
+        await delay(2000);
         this.router.navigate(['/home']);
     }, error => {
         this.dialogBlockUI.stop();

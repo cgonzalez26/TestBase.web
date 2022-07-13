@@ -99,19 +99,18 @@ public editForm(form: Usuario) {
 
 public editWeb(form: Usuario) { //UsuarioDto
     const url = `${this.controller}/web/update`;
-    let id: string;
-    id= this.form.Id;
-    console.log('editweb ',form);
+    let id: string = form.Id;    
+    //console.log('editweb ',form);
     return this.HttpClient.post<Usuario>(url, form).pipe(map(response => {
-        //return response;
+        //return response;    
         const index = this.entities.findIndex((e) => e.Id == id);
         if (index >= 0) {
             this.entities[index] = form;
             this.setEntities(this.entities);
         }
-
     }));
 }
+
 
 // Add new entity
 addEntity(entity: Usuario) {

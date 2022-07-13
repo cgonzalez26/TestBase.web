@@ -6,7 +6,7 @@ export const navigation: FuseNavigation[] = [
         title: "Home Group",
         translate: "NAV.PRINCIPAL.TITLE",
         type: "group",
-        permission: "PAGES_HOME",
+        permission: "PAGES_MAIN",
         children: [
             {
                 id: "home",
@@ -15,7 +15,7 @@ export const navigation: FuseNavigation[] = [
                 type: "item",
                 icon: "home",
                 url: "/ui/home",
-                permission: "PAGES_HOME",
+                permission: "PAGES_MAIN_HOME",
             },            
             {
                 id: "establecimientos",
@@ -33,16 +33,16 @@ export const navigation: FuseNavigation[] = [
                 type: "item",
                 icon: "directions_car",
                 url: "ui/management/impuestos_aut",
-                permission: "PAGES_MANAGEMENT_IMPUESTOS_AUT",
+                permission: "PAGES_MAIN_IMPUESTOS_AUT",
             },
             {
                 id: "impuestos_inm",
-                title: "Impuestos Inmuebles",
-                translate: "Impuestos Inmuebles",//"NAV.MANAGEMENT.ESTABLECIMIENTOS.TITLE",
+                title: "Impuestos Inmobiliarios",
+                translate: "Impuestos Inmobiliarios",//"NAV.MANAGEMENT.ESTABLECIMIENTOS.TITLE",
                 type: "item",
                 icon: "location_city",
                 url: "ui/management/impuestos_inm",
-                permission: "PAGES_MANAGEMENT_IMPUESTOS_INM",
+                permission: "PAGES_MAIN_IMPUESTOS_INM",
             },
             {
                 id: "impuestos_tsg",
@@ -51,7 +51,7 @@ export const navigation: FuseNavigation[] = [
                 type: "item",
                 icon: "location_city",
                 url: "ui/management/impuestos_tsg",
-                permission: "PAGES_MANAGEMENT_IMPUESTOS_TSG",
+                permission: "PAGES_MAIN_IMPUESTOS_TSG",
             }
         ],
     },
@@ -69,7 +69,7 @@ export const navigation: FuseNavigation[] = [
                 type: "item",
                 icon: "perm_identity",
                 url: "ui/auth/miperfil",
-                permission: "PAGE_MI_PERFIL",
+                permission: "PAGES_MANAGMENT_PERFIL",
             },
             {
                 id: "usuarios",
@@ -78,8 +78,17 @@ export const navigation: FuseNavigation[] = [
                 type: "item",
                 icon: "user_group",
                 url: "ui/management/usuarios",
-                permission: "PAGE_MANAGMENT_USUARIOS",
+                permission: "PAGES_MANAGMENT_USUARIOS",
             },
+        ],
+    },
+    {
+        id: "report",
+        title: "Reportes",
+        translate: "Reportes",
+        type: "group",
+        permission: "PAGES_REPORT",//"PAGES_SECURITY",
+        children: [
             {
                 id: "report_deudores",
                 title: "Deudores por Zonas",
@@ -87,7 +96,7 @@ export const navigation: FuseNavigation[] = [
                 type: "item",
                 icon: "user_group",
                 url: "ui/report/deudores-zonas",
-                permission: "PAGE_REPORT_DEUDORES_ZONAS",
+                permission: "PAGES_REPORT_DEUDORES_ZONAS",
             }
         ],
     },    
