@@ -4,8 +4,8 @@ export const environment = {
     localStorageAuthDataItem: "ATIBaseWebLSProduction", // ACCIÓN NECESARIA: RENOMBRAR (EJ. ATICopaLecheWebLSProduction)
     localStorageEditItem: 'ATIBaseWebLSProduction',
     api: {
-        auth: "https://localhost:44301/",//"http://localhost:58425/",
-        base: "https://localhost:44301/api/", // ACCIÓN REQUERIDA: CONFIGURAR LA URL DE LA API LOCAL
+        auth: "http://localhost:44301/",//"http://localhost:58425/",
+        base: "http://localhost:44301/api/", // ACCIÓN REQUERIDA: CONFIGURAR LA URL DE LA API LOCAL
     },
     google: {
         maps: {
