@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, OnDestroy, Input, Output, EventEmitter, O
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Subject, Observable, combineLatest } from 'rxjs';
 import { Titular } from '../../../../models/titulares/titular';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 //import { ImpuestosTsgService } from '../../../services/impuestos_tsg/impuestos_tsg.service';
 import { TranslationService } from '../../../../services/translation/translation.service';
 import { takeUntil, debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
@@ -30,7 +30,15 @@ export class DeudoresZonasTableComponent implements OnInit {
   @Output() onView: EventEmitter<Deudores>;
   searchInput: FormControl;
   ZonaId: FormControl;
-  zonas: Zona[];
+  //zonas: Zona[];
+  zonas ={
+    "ID_ALL":"Todas las zonas",
+    "66040_ID_CENTRO":"CENTRO",
+    "66040_ID_ESTE":"ESTE",
+    "66040_ID_NORTE":"NORTE",
+    "66040_ID_OESTE":"OESTE",
+    "66040_ID_SUR":"SUR"    
+  };
 
   private _unsubscribeAll: Subject<any>;
   messages = {
@@ -43,8 +51,10 @@ export class DeudoresZonasTableComponent implements OnInit {
   isContribuyente: boolean;
   DepartamentoId: string = '66040'; //oran
   apiResponse: any = [];
-  selected: string;
+  selected: string = "ID_ALL";
   searchText: string = "";
+  searchZonaId: string="";
+  deudoresForm: FormGroup;
 
   constructor(private _translationService: TranslationService,
     private _ImpuestosTsgService: TitularesService,
@@ -52,11 +62,13 @@ export class DeudoresZonasTableComponent implements OnInit {
     private _authenticationService: AuthenticationService,
     private _zonaService: ZonaService,
     private _sweetAlert2Helper: SweetAlert2Helper,
+    private _formBuilder: FormBuilder,
     ) { 
       this._unsubscribeAll = new Subject();
         this.onView = new EventEmitter<Deudores>();        
         this.messages.emptyMessage = this._translationService.noDataAvailable;
-        this.zonas = [];
+        //this.zonas = [];
+        this.deudoresForm = this.createFormGroup();      
         this.searchInput = new FormControl('');
         this.ZonaId = new FormControl('');
         /*this.searchInput.valueChanges
@@ -76,17 +88,29 @@ export class DeudoresZonasTableComponent implements OnInit {
     const currentUser = this._authenticationService.usuario;    
     this.isContribuyente = (currentUser.Rol.Id == 'COD_CONTRIBUYENTE')? true: false;    
     this.selected = "ID_ALL";
-    this.getData();
+    //this.getData();
   }
 
+  createFormGroup(): FormGroup {
+    const formGroup = this._formBuilder.group({
+      ZonaId: [this.selected],
+      searchInput: [],
+    });        
+    return formGroup;
+  }
+  
   getData(): void {
     const $combineLatest = combineLatest([
       this._zonaService.zonaByDepartamento(this.DepartamentoId)
     ]);
     $combineLatest.pipe(takeUntil(this._unsubscribeAll)).subscribe(
-      ([zonas]) => {
+      ([zonas]) => {          
+          //this.zonas = zonas;
+          /*const opcionAll = new Zona();
+          opcionAll.Id = "ID_ALL";
+          opcionAll.Nombre = "Todas las zonas";
+          this.zonas.push(opcionAll);*/
           console.log(` getData > zonas`, zonas);
-          this.zonas = zonas;
       },
       (error) => {
           console.error(` getData > Error`, error);
@@ -136,16 +160,51 @@ export class DeudoresZonasTableComponent implements OnInit {
     this.onView.emit(row);
   }
 
+  setRawValues(): any {
+    const rawValue = this.deudoresForm.getRawValue();
+    this.searchZonaId = rawValue.ZonaId;
+    this.searchText = rawValue.searchInput;
+  }
+
   buscar():void{
-    this.searchText = this.searchInput.value;
-    this.ZonaId = this.ZonaId.value;
-    if(this.forms$ && this.searchText != ''){
+    //this.searchText = this.searchInput.value;
+    //this.searchZonaId = this.ZonaId.value;
+    
+    this.setRawValues();
+    console.log('datos ',this.forms$);
+    console.log('filtros',this.searchText,'--',this.searchZonaId);
+    if(this.forms$ && (this.searchText == null || this.searchText=='') && this.searchZonaId == 'ID_ALL'){
+      this.filteredRows = this.forms$;
+    } else{
+
+      if(this.forms$ && this.searchText != '' && this.searchText != null && this.searchZonaId != 'ID_ALL'){
+        console.log('entro filtro 1',this.searchText,'--',this.searchZonaId);
         this.filteredRows = this.forms$.pipe(map((response: any) => {
             return response.filter(c => ((c && c.sApellido.toUpperCase().includes(this.searchText) 
-              || (c.sNombre.toUpperCase().includes(this.searchText)) && (c.ZonaId.includes(this.ZonaId)))
+              || (c.sNombre.toUpperCase().includes(this.searchText)) && (c.ZonaId.includes(this.searchZonaId)))
             //|| (c.UserName && c.UserName.toUpperCase().includes(value)) || (c.DocumentNumber && c.DocumentNumber.toUpperCase().includes(value))
             ));
         }));
+      } else {
+        if(this.forms$ && this.searchText != '' && this.searchZonaId == 'ID_ALL'){
+          console.log('entro filtro 2',this.searchText,'--',this.searchZonaId);
+            this.filteredRows = this.forms$.pipe(map((response: any) => {
+                return response.filter(c => ((c && c.sApellido.toUpperCase().includes(this.searchText) 
+                  || (c.sNombre.toUpperCase().includes(this.searchText)))
+                //|| (c.UserName && c.UserName.toUpperCase().includes(value)) || (c.DocumentNumber && c.DocumentNumber.toUpperCase().includes(value))
+                ));
+            }));
+        }else{
+          if(this.forms$ && (this.searchText == null || this.searchText=='') && this.searchZonaId != 'ID_ALL'){
+            console.log('entro filtro 3',this.searchText,'--',this.searchZonaId);
+            this.filteredRows = this.forms$.pipe(map((response: any) => {
+                return response.filter(c => ((c && c.ZonaId.includes(this.searchZonaId))
+                //|| (c.UserName && c.UserName.toUpperCase().includes(value)) || (c.DocumentNumber && c.DocumentNumber.toUpperCase().includes(value))
+                ));
+            }));
+          } 
+        }
+      }
     }
   }
 
